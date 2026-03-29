@@ -16,9 +16,6 @@ The full, clean versions are available for purchase on Gumroad.
   ✦   nobre-fine-dining:  https://vinayak8484.github.io/Portuguese-restaurant-template-preview/nobre-fine-dining.html
   🔥  brasa-churrascaria: https://vinayak8484.github.io/Portuguese-restaurant-template-preview/brasa-churrascaria.html
 
-To buy the full clean version: https://vinayakganiger.gumroad.com
-
-
 ──────────────────────────────────────────────────────────────
   WHAT IS IN THE FOLDER
 ──────────────────────────────────────────────────────────────
