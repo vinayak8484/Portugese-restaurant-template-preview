@@ -10,9 +10,9 @@ As versões completas e sem formatação estão disponíveis para compra no Gumr
 
 🔴 PREVIA AO VIVO – da uma olhada, gostou? Entao compre
 
-  ☕  alma-cafe:          https://vinayak8484.github.io/Portuguese-restaurant-template-preview/alma-cafe.html
-  ✦   nobre-fine-dining:  https://vinayak8484.github.io/Portuguese-restaurant-template-preview/nobre-fine-dining.html
-  🔥  brasa-churrascaria: https://vinayak8484.github.io/Portuguese-restaurant-template-preview/brasa-churrascaria.html
+  ☕  alma-cafe:          https://vinayak8484.github.io/Portugese-restaurant-template-preview/alma-cafe.html
+  ✦   nobre-fine-dining:  https://vinayak8484.github.io/Portugese-restaurant-template-preview/nobre-fine-dining.html
+  🔥  brasa-churrascaria: https://vinayak8484.github.io/Portugese-restaurant-template-preview/brasa-churrascaria.html
 
 ──────────────────────────────────────────────────────────────
   O QUE ESTA NA PASTA
