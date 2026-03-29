@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<!--
+  NOBRE — Brazilian Fine Dining Website Template
+  Created by Vinayak Ganiger x Claude (Anthropic AI)
+  For customisation: vinayakganiger445@gmail.com
+  WhatsApp: https://wa.me/4916364141​97
+-->
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Nobre — Alta Gastronomia</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --black:#060606;
+  --gold:#C9943A;
+  --ivory:#EDE8DF;
+  --deep:#1A1208;
+  --gold-dim:rgba(201,148,58,.18);
+  --shadow:0 4px 32px rgba(0,0,0,.4);
+  --radius:4px;
+  --transition:all .35s ease;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--ivory);overflow-x:hidden}
+
+/* LOADER */
+#loader{position:fixed;inset:0;background:var(--deep);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .7s}
+#loader.hide{opacity:0;pointer-events:none}
+.loader-diamond{font-size:2rem;color:var(--gold);animation:diamondPulse 1.5s ease-in-out infinite}
+@keyframes diamondPulse{0%,100%{opacity:.4;transform:scale(.9)}50%{opacity:1;transform:scale(1.15)}}
+.loader-name{font-family:'Cormorant Garamond',serif;color:var(--ivory);font-size:1.9rem;letter-spacing:.35em;text-transform:uppercase;margin-top:1.2rem;font-weight:300}
+.loader-sub{color:var(--gold);font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;margin-top:.6rem}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:76px;transition:var(--transition)}
+nav.scrolled{background:rgba(6,6,6,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,58,.12)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--ivory);letter-spacing:.2em;text-transform:uppercase;text-decoration:none;font-weight:400}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:rgba(237,232,223,.6);text-decoration:none;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--ivory)}
+.nav-right{display:flex;align-items:center;gap:.9rem}
+.lang-switcher{display:flex;background:rgba(201,148,58,.12);border-radius:2px;overflow:hidden;border:1px solid rgba(201,148,58,.2)}
+.lang-btn{border:none;background:transparent;color:rgba(237,232,223,.5);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:600;padding:.3rem .8rem;cursor:pointer;transition:var(--transition);letter-spacing:.1em}
+.lang-btn.active{background:var(--gold);color:var(--black)}
+.dark-toggle{background:none;border:1px solid rgba(201,148,58,.3);color:rgba(237,232,223,.7);padding:.3rem .85rem;border-radius:2px;font-size:.72rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;transition:var(--transition);letter-spacing:.08em}
+.dark-toggle:hover{border-color:var(--gold);color:var(--gold)}
+.nav-reserve{border:1px solid var(--gold);color:var(--gold);padding:.42rem 1.2rem;border-radius:2px;font-size:.75rem;font-weight:600;text-decoration:none;letter-spacing:.1em;transition:var(--transition);white-space:nowrap;text-transform:uppercase}
+.nav-reserve:hover{background:var(--gold);color:var(--black)}
+.menu-btn{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.menu-btn span{width:24px;height:1px;background:var(--gold);border-radius:2px}
+
+/* HERO */
+.hero{height:100vh;min-height:600px;position:relative;display:flex;align-items:center;overflow:hidden}
+.hero-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&auto=format&fit=crop') center/cover no-repeat;filter:brightness(.35)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(6,6,6,.85) 0%,rgba(26,18,8,.5) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 10%;max-width:760px}
+.hero-ornament{color:var(--gold);font-size:.8rem;letter-spacing:.5em;text-transform:uppercase;margin-bottom:1.5rem;opacity:.7}
+.hero h1{font-family:'Cormorant Garamond',serif;color:var(--ivory);font-size:clamp(3rem,6vw,5.5rem);line-height:1.05;font-weight:300;margin-bottom:1.5rem;letter-spacing:.04em}
+.hero h1 em{color:var(--gold);font-style:italic}
+.hero-line{width:60px;height:1px;background:var(--gold);margin:.75rem 0 1.5rem;opacity:.6}
+.hero-desc{color:rgba(237,232,223,.65);font-size:.95rem;line-height:1.85;margin-bottom:3rem;max-width:500px;font-weight:300;letter-spacing:.02em}
+.hero-btns{display:flex;gap:1.2rem;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:var(--black);padding:.85rem 2.4rem;border-radius:2px;font-weight:600;font-size:.8rem;text-decoration:none;letter-spacing:.12em;text-transform:uppercase;transition:var(--transition)}
+.btn-gold:hover{background:#b07e2a;transform:translateY(-1px)}
+.btn-ghost{border:1px solid rgba(201,148,58,.4);color:var(--gold);padding:.85rem 2.4rem;border-radius:2px;font-weight:600;font-size:.8rem;text-decoration:none;letter-spacing:.12em;text-transform:uppercase;transition:var(--transition)}
+.btn-ghost:hover{border-color:var(--gold);background:rgba(201,148,58,.08)}
+
+/* SECTIONS */
+section{padding:7rem 8%}
+.section-label{color:var(--gold);font-size:.68rem;letter-spacing:.35em;text-transform:uppercase;margin-bottom:.75rem;opacity:.8}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);color:var(--ivory);line-height:1.2;margin-bottom:1rem;font-weight:300;letter-spacing:.04em}
+.section-line{width:40px;height:1px;background:var(--gold);margin:0 0 2.5rem;opacity:.5}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:6rem;align-items:center}
+.about-img-wrap{position:relative}
+.about-img{width:100%;height:540px;object-fit:cover;filter:brightness(.9)}
+.about-frame{position:absolute;inset:16px;border:1px solid rgba(201,148,58,.25);pointer-events:none}
+.about-text p{color:rgba(237,232,223,.6);line-height:1.9;margin-bottom:1.3rem;font-size:.92rem;font-weight:300;letter-spacing:.02em}
+.about-awards{display:flex;gap:3rem;margin-top:2.5rem;flex-wrap:wrap}
+.award{text-align:center}
+.award strong{display:block;font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);line-height:1;font-weight:400}
+.award span{font-size:.68rem;color:rgba(237,232,223,.45);letter-spacing:.12em;text-transform:uppercase}
+
+/* MENU */
+.menu-section{background:var(--deep)}
+.menu-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:3rem}
+.tab-btn{background:none;border:1px solid rgba(201,148,58,.2);padding:.45rem 1.5rem;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600;cursor:pointer;color:rgba(237,232,223,.4);transition:var(--transition);letter-spacing:.1em;text-transform:uppercase}
+.tab-btn.active{background:var(--gold);color:var(--black);border-color:var(--gold)}
+.tab-btn:hover:not(.active){border-color:var(--gold);color:var(--gold)}
+.tab-panel{display:none}
+.tab-panel.active{display:flex;flex-direction:column;gap:0}
+/* degustation list */
+.deg-list{display:flex;flex-direction:column;gap:1.5rem}
+.deg-item{display:grid;grid-template-columns:2rem 1fr auto;gap:1.5rem;align-items:start;padding:2rem;border:1px solid rgba(201,148,58,.1);transition:border-color .3s}
+.deg-item:hover{border-color:rgba(201,148,58,.35)}
+.deg-num{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);opacity:.5;padding-top:.1rem;font-style:italic}
+.deg-info h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--ivory);margin-bottom:.35rem;font-weight:400}
+.deg-info p{color:rgba(237,232,223,.45);font-size:.82rem;line-height:1.7;font-weight:300}
+.deg-price{font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:1rem;white-space:nowrap;padding-top:.1rem}
+/* a la carte grid */
+.carte-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+.carte-card{background:rgba(255,255,255,.03);border:1px solid rgba(201,148,58,.1);padding:1.75rem;transition:var(--transition)}
+.carte-card:hover{border-color:rgba(201,148,58,.35);background:rgba(201,148,58,.04)}
+.carte-card h3{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--ivory);margin-bottom:.5rem;font-weight:400}
+.carte-card p{color:rgba(237,232,223,.45);font-size:.82rem;line-height:1.7;margin-bottom:1rem;font-weight:300}
+.carte-footer{display:flex;justify-content:space-between;align-items:center}
+.c-price{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.1rem}
+.c-tag{font-size:.65rem;letter-spacing:.1em;color:rgba(201,148,58,.6);text-transform:uppercase;border:1px solid rgba(201,148,58,.2);padding:.15rem .5rem}
+/* wine */
+.wine-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+.wine-card{padding:1.5rem;border:1px solid rgba(201,148,58,.1);transition:border-color .3s}
+.wine-card:hover{border-color:rgba(201,148,58,.3)}
+.wine-region{font-size:.65rem;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem;opacity:.7}
+.wine-card h3{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--ivory);margin-bottom:.4rem;font-weight:400}
+.wine-card p{color:rgba(237,232,223,.45);font-size:.8rem;line-height:1.65;margin-bottom:.9rem;font-weight:300}
+.wine-price{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1rem}
+
+/* EXPERIENCE */
+.exp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:3rem}
+.exp-item{position:relative;overflow:hidden}
+.exp-item img{width:100%;height:360px;object-fit:cover;filter:brightness(.6);transition:filter .5s,transform .5s}
+.exp-item:hover img{filter:brightness(.4);transform:scale(1.04)}
+.exp-overlay{position:absolute;bottom:0;left:0;right:0;padding:2rem;background:linear-gradient(transparent,rgba(6,6,6,.9))}
+.exp-overlay h3{font-family:'Cormorant Garamond',serif;color:#fff;font-size:1.3rem;margin-bottom:.3rem;font-weight:400}
+.exp-overlay p{color:rgba(255,255,255,.55);font-size:.8rem;font-weight:300}
+
+/* TASTING PROMO */
+.tasting-promo{background:var(--gold-dim);border:1px solid rgba(201,148,58,.2);padding:4rem;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;margin-top:4rem}
+.tasting-promo h3{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--ivory);margin-bottom:.5rem;font-weight:300}
+.tasting-promo p{color:rgba(237,232,223,.55);font-size:.88rem;line-height:1.75;font-weight:300}
+
+/* TESTIMONIALS */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-top:2.5rem}
+.tcard{border:1px solid rgba(201,148,58,.12);padding:2rem;transition:border-color .3s}
+.tcard:hover{border-color:rgba(201,148,58,.3)}
+.stars{color:var(--gold);font-size:.9rem;margin-bottom:1rem;letter-spacing:.1em}
+.tcard p{color:rgba(237,232,223,.6);font-size:.88rem;line-height:1.8;font-style:italic;margin-bottom:1.25rem;font-weight:300}
+.tcard-author{display:flex;align-items:center;gap:.75rem}
+.tcard-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;border:1px solid rgba(201,148,58,.3)}
+.tcard-name{font-size:.85rem;color:var(--ivory);font-weight:600}
+.tcard-loc{font-size:.72rem;color:rgba(237,232,223,.35)}
+
+/* HOURS + MAP */
+.info-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:4rem;align-items:start}
+.hours-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.hours-list li{display:flex;justify-content:space-between;padding-bottom:.75rem;border-bottom:1px solid rgba(201,148,58,.1);font-size:.88rem}
+.hours-list li span:first-child{color:var(--ivory);letter-spacing:.04em}
+.hours-list li span:last-child{color:rgba(237,232,223,.4);font-size:.83rem}
+.map-wrap iframe{width:100%;height:360px;border:none;filter:grayscale(.8) invert(.9) contrast(.85) brightness(.7)}
+
+/* RESERVATION */
+.res-form{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2.5rem;max-width:680px}
+.res-form .full{grid-column:1/-1}
+.form-group{display:flex;flex-direction:column;gap:.4rem}
+.form-group label{font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(237,232,223,.4)}
+.form-group input,.form-group select,.form-group textarea{background:rgba(255,255,255,.04);border:1px solid rgba(201,148,58,.15);color:var(--ivory);padding:.75rem 1rem;font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;transition:border-color .2s;border-radius:2px}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group select option{background:var(--black)}
+.form-group textarea{resize:vertical;min-height:90px}
+.btn-submit{background:var(--gold);color:var(--black);border:none;padding:.85rem 2.5rem;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;letter-spacing:.12em;text-transform:uppercase;transition:var(--transition);margin-top:.5rem}
+.btn-submit:hover{background:#b07e2a}
+
+/* FOOTER */
+footer{background:#030303;border-top:1px solid rgba(201,148,58,.1);padding:4rem 8% 2rem}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand h3{font-family:'Cormorant Garamond',serif;color:var(--ivory);font-size:1.3rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.75rem;font-weight:300}
+.footer-brand p{font-size:.82rem;line-height:1.8;color:rgba(237,232,223,.35);max-width:260px;font-weight:300}
+.footer-col h4{color:var(--gold);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1rem;opacity:.7}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.footer-col ul a{color:rgba(237,232,223,.35);text-decoration:none;font-size:.83rem;transition:color .2s;font-weight:300}
+.footer-col ul a:hover{color:var(--ivory)}
+.footer-bottom{border-top:1px solid rgba(201,148,58,.1);padding-top:1.5rem;display:flex;justify-content:space-between;font-size:.75rem;color:rgba(237,232,223,.25);flex-wrap:wrap;gap:.5rem}
+.footer-bottom a{color:rgba(237,232,223,.4);text-decoration:none}
+
+/* FLOATING CTA */
+#floating-cta{position:fixed;bottom:2rem;right:2rem;background:var(--gold);color:var(--black);padding:.75rem 1.5rem;border-radius:2px;font-size:.75rem;font-weight:700;text-decoration:none;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 4px 20px rgba(201,148,58,.25);transition:var(--transition);z-index:80}
+#floating-cta:hover{background:#b07e2a}
+#floating-cta.hidden{opacity:0;pointer-events:none}
+
+/* LIGHT MODE */
+body.light-mode{background:var(--ivory);color:var(--black)}
+body.light-mode nav.scrolled{background:rgba(237,232,223,.97);border-color:rgba(0,0,0,.1)}
+body.light-mode .nav-logo{color:var(--black)}
+body.light-mode .nav-links a{color:rgba(0,0,0,.55)}
+body.light-mode .nav-links a:hover{color:var(--black)}
+body.light-mode .section-title{color:var(--black)}
+body.light-mode .about-text p{color:rgba(0,0,0,.55)}
+body.light-mode .deg-info p,.light-mode .carte-card p,.light-mode .wine-card p{color:rgba(0,0,0,.5)}
+body.light-mode .tcard p{color:rgba(0,0,0,.55)}
+body.light-mode .hours-list li span:first-child{color:var(--black)}
+body.light-mode .form-group input,body.light-mode .form-group select,body.light-mode .form-group textarea{background:#fff;border-color:rgba(0,0,0,.12);color:var(--black)}
+body.light-mode .menu-section{background:#EAE4DA}
+body.light-mode .deg-item,.light-mode .carte-card,.light-mode .wine-card{background:#fff}
+body.light-mode .map-wrap iframe{filter:none}
+
+/* MOBILE */
+@media(max-width:900px){
+  .about-grid,.info-grid,.exp-grid{grid-template-columns:1fr}
+  .tasting-promo{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  section{padding:4rem 5%}
+  .nav-links,.nav-reserve{display:none}
+  .menu-btn{display:flex}
+  .hero-content{padding:0 5%}
+  .footer-top{grid-template-columns:1fr}
+  .res-form{grid-template-columns:1fr}
+  .res-form .full{grid-column:1}
+}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-diamond">◆</div>
+  <div class="loader-name">NOBRE</div>
+  <div class="loader-sub">Alta Gastronomia · Rio de Janeiro</div>
+</div>
+
+<a href="#reserva" id="floating-cta" data-i18n="cta_float">Reservar</a>
+
+<nav id="navbar">
+  <a href="#" class="nav-logo">N<span>O</span>BRE</a>
+  <ul class="nav-links">
+    <li><a href="#sobre" data-i18n="nav_about">Nossa história</a></li>
+    <li><a href="#cardapio" data-i18n="nav_menu">Menu</a></li>
+    <li><a href="#experiencia" data-i18n="nav_exp">Experiência</a></li>
+    <li><a href="#contato" data-i18n="nav_hours">Horários</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="pt">PT</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <button class="dark-toggle" id="darkToggle" data-i18n="dark_mode">Modo claro</button>
+    <a href="#reserva" class="nav-reserve" data-i18n="nav_reserve">Reservar</a>
+    <button class="menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-ornament" data-i18n="hero_orn">◆ &nbsp; Alta Gastronomia Brasileira &nbsp; ◆</p>
+    <h1>Onde o Brasil<br>encontra a <em>arte</em></h1>
+    <div class="hero-line"></div>
+    <p class="hero-desc" data-i18n="hero_desc">Ingredientes brasileiros excepcionais encontram técnica contemporânea em um menu degustação que celebra a biodiversidade do nosso país. Uma noite no Nobre é uma experiência que não se esquece.</p>
+    <div class="hero-btns">
+      <a href="#cardapio" class="btn-gold" data-i18n="hero_btn1">Ver o menu</a>
+      <a href="#reserva" class="btn-ghost" data-i18n="hero_btn2">Reservar uma noite</a>
+    </div>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="about-grid">
+    <div class="about-img-wrap reveal">
+      <img class="about-img" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&auto=format&fit=crop" alt="Nobre interior"/>
+      <div class="about-frame"></div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-label" data-i18n="about_label">Nossa filosofia</div>
+      <h2 class="section-title" data-i18n="about_title">Alta gastronomia com alma brasileira</h2>
+      <div class="section-line"></div>
+      <p data-i18n="about_p1">O Nobre nasceu de uma convicção: o Brasil tem os ingredientes mais extraordinários do mundo. A Amazônia, o Cerrado, o Pantanal, o litoral — cada bioma oferece sabores únicos que o mundo ainda está descobrindo.</p>
+      <p data-i18n="about_p2">Nosso chef percorre o país todos os anos, construindo relações com agricultores, pescadores e extrativistas. Do tucupi paraense ao queijo artesanal mineiro, cada elemento no prato tem uma história e um produtor com nome.</p>
+      <p data-i18n="about_p3">O resultado é uma cozinha que é genuinamente brasileira, tecnicamente precisa e emocionalmente marcante. Você não vai esquecer a primeira vez que comeu no Nobre.</p>
+      <div class="about-awards">
+        <div class="award"><strong>★★</strong><span data-i18n="award_stars">Guia Michelin</span></div>
+        <div class="award"><strong>18</strong><span data-i18n="award_tables">mesas</span></div>
+        <div class="award"><strong>2011</strong><span data-i18n="award_since">Fundado</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cardapio" class="menu-section">
+  <div class="section-label" data-i18n="menu_label">A nossa cozinha</div>
+  <h2 class="section-title" data-i18n="menu_title">Menu &amp; Experiências</h2>
+  <div class="section-line"></div>
+  <div class="menu-tabs">
+    <button class="tab-btn active" data-tab="deg" data-i18n="tab_deg">Degustação</button>
+    <button class="tab-btn" data-tab="carte" data-i18n="tab_carte">À la Carte</button>
+    <button class="tab-btn" data-tab="adega" data-i18n="tab_adega">Adega</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-deg">
+    <div class="deg-list">
+      <div class="deg-item reveal">
+        <span class="deg-num">I</span>
+        <div class="deg-info"><h3 data-i18n="d1_name">Boas-vindas da Floresta</h3><p data-i18n="d1_desc">Castanha-do-pará defumada, cumaru e gel de tucumã. Uma saudação à Amazônia.</p></div>
+        <span class="deg-price" data-i18n="d1_note">incluso</span>
+      </div>
+      <div class="deg-item reveal">
+        <span class="deg-num">II</span>
+        <div class="deg-info"><h3 data-i18n="d2_name">Ostras do Litoral Catarinense</h3><p data-i18n="d2_desc">Ostras de Florianópolis, leite de coco, vinagrete de maracujá e tucupi amarelo.</p></div>
+        <span class="deg-price">R$ —</span>
+      </div>
+      <div class="deg-item reveal">
+        <span class="deg-num">III</span>
+        <div class="deg-info"><h3 data-i18n="d3_name">Ceviche de Pirarucu</h3><p data-i18n="d3_desc">Pirarucu da Amazônia marinado em leite de tigre com tucupi e jambu fresco.</p></div>
+        <span class="deg-price">R$ —</span>
+      </div>
+      <div class="deg-item reveal">
+        <span class="deg-num">IV</span>
+        <div class="deg-info"><h3 data-i18n="d4_name">Caldo de Pirão Negro</h3><p data-i18n="d4_desc">Pirão negro com tinta de lula, camarão-rosa do Nordeste e crocante de tapioca.</p></div>
+        <span class="deg-price">R$ —</span>
+      </div>
+      <div class="deg-item reveal">
+        <span class="deg-num">V</span>
+        <div class="deg-info"><h3 data-i18n="d5_name">Costela de Boi do Pantanal</h3><p data-i18n="d5_desc">72 horas de cocção lenta, farofa de castanha, vinagrete de pequi e purê de mandioca-baroa.</p></div>
+        <span class="deg-price">R$ —</span>
+      </div>
+      <div class="deg-item reveal">
+        <span class="deg-num">VI</span>
+        <div class="deg-info"><h3 data-i18n="d6_name">Queijo Canastra com Goiabada</h3><p data-i18n="d6_desc">Queijo Canastra envelhecido 60 dias, geleia de goiaba artesanal e mel de abelha nativa.</p></div>
+        <span class="deg-price">R$ —</span>
+      </div>
+      <div class="deg-item reveal">
+        <span class="deg-num">VII</span>
+        <div class="deg-info"><h3 data-i18n="d7_name">Cremoso de Cupuaçu</h3><p data-i18n="d7_desc">Cremoso de cupuaçu, ganache de cacau selvagem, sorvete de açaí e ouro em folha.</p></div>
+        <span class="deg-price">R$ —</span>
+      </div>
+      <div class="deg-item reveal">
+        <span class="deg-num">VIII</span>
+        <div class="deg-info"><h3 data-i18n="d8_name">Mignardises da Floresta</h3><p data-i18n="d8_desc">Brigadeiro de cacau selvagem, bombom de cupuaçu e caramelo de guaraná. Tchau da cozinha.</p></div>
+        <span class="deg-price" data-i18n="d8_note">incluso</span>
+      </div>
+      <div class="tasting-promo reveal">
+        <div>
+          <h3 data-i18n="promo_title">Menu Degustação Completo</h3>
+          <p data-i18n="promo_desc">8 tempos com harmonização de vinhos nacionais e internacionais. Reserva obrigatória com 48h de antecedência. Grupos de até 18 pessoas.</p>
+        </div>
+        <div style="text-align:right;white-space:nowrap">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:var(--gold)">R$ 480</div>
+          <div style="font-size:.72rem;color:rgba(237,232,223,.4);letter-spacing:.1em;text-transform:uppercase" data-i18n="promo_pp">por pessoa</div>
+          <a href="#reserva" class="btn-gold" style="display:inline-block;margin-top:1rem;font-size:.75rem" data-i18n="promo_btn">Reservar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-carte">
+    <div class="carte-grid">
+      <div class="carte-card reveal"><h3 data-i18n="c1_name">Tartar de Atum com Açaí</h3><p data-i18n="c1_desc">Atum-rabilho, pasta de açaí do Pará, caviar de tapioca e emulsão de dendê branco.</p><div class="carte-footer"><span class="c-price">R$ 88</span><span class="c-tag" data-i18n="c_entradas">Entrada</span></div></div>
+      <div class="carte-card reveal"><h3 data-i18n="c2_name">Vieira com Leite de Castanha</h3><p data-i18n="c2_desc">Vieira selada, leite de castanha-do-pará, pó de café e chips de banana-da-terra.</p><div class="carte-footer"><span class="c-price">R$ 96</span><span class="c-tag" data-i18n="c_entradas">Entrada</span></div></div>
+      <div class="carte-card reveal"><h3 data-i18n="c3_name">Picanha Black Angus</h3><p data-i18n="c3_desc">Picanha maturada 30 dias, vinagrete de pequi, farofa de castanha e purê de mandioca.</p><div class="carte-footer"><span class="c-price">R$ 148</span><span class="c-tag" data-i18n="c_pratos">Prato</span></div></div>
+      <div class="carte-card reveal"><h3 data-i18n="c4_name">Robalo do Nordeste</h3><p data-i18n="c4_desc">Robalo inteiro assado em folha de bananeira, caldinho de caranguejo e pirão de leite de coco.</p><div class="carte-footer"><span class="c-price">R$ 128</span><span class="c-tag" data-i18n="c_pratos">Prato</span></div></div>
+      <div class="carte-card reveal"><h3 data-i18n="c5_name">Souflê de Cacau da Bahia</h3><p data-i18n="c5_desc">Soufflé de cacau Valrhona 72%, sorvete de cumaru e caramelo de rapadura.</p><div class="carte-footer"><span class="c-price">R$ 58</span><span class="c-tag" data-i18n="c_sobremesas">Sobremesa</span></div></div>
+      <div class="carte-card reveal"><h3 data-i18n="c6_name">Esfera de Maracujá</h3><p data-i18n="c6_desc">Esferificação de maracujá, espuma de tapioca, geleia de manga e açúcar de baunilha.</p><div class="carte-footer"><span class="c-price">R$ 52</span><span class="c-tag" data-i18n="c_sobremesas">Sobremesa</span></div></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-adega">
+    <div class="wine-grid">
+      <div class="wine-card reveal"><div class="wine-region" data-i18n="w_rs">Serra Gaúcha, RS</div><h3 data-i18n="w1_name">Cave Geisse Brut Rosé</h3><p data-i18n="w1_desc">Pinot Noir da Serra Gaúcha, perlage fina e elegante. O melhor espumante brasileiro.</p><div class="wine-price">R$ 280</div></div>
+      <div class="wine-card reveal"><div class="wine-region" data-i18n="w_vale">Vale do São Francisco, BA</div><h3 data-i18n="w2_name">Miolo Lote 43</h3><p data-i18n="w2_desc">Blend tinto do nordeste brasileiro, taninos sedosos, frutas negras e tabaco.</p><div class="wine-price">R$ 220</div></div>
+      <div class="wine-card reveal"><div class="wine-region">Argentina · Mendoza</div><h3 data-i18n="w3_name">Catena Zapata Adrianna</h3><p data-i18n="w3_desc">Malbec de altitude, complexidade excepcional, um dos melhores da América do Sul.</p><div class="wine-price">R$ 680</div></div>
+      <div class="wine-card reveal"><div class="wine-region">Portugal · Douro</div><h3 data-i18n="w4_name">Quinta do Crasto Reserva</h3><p data-i18n="w4_desc">Blend de castas portuguesas, estruturado e elegante. Harmoniza perfeitamente com a picanha.</p><div class="wine-price">R$ 340</div></div>
+      <div class="wine-card reveal"><div class="wine-region">França · Borgonha</div><h3 data-i18n="w5_name">Domaine Leflaive Puligny</h3><p data-i18n="w5_desc">Chardonnay de Puligny-Montrachet, mineral, amanteigado. Perfeito com as ostras e o pirarucu.</p><div class="wine-price">R$ 890</div></div>
+      <div class="wine-card reveal"><div class="wine-region" data-i18n="w_nat">Brasil · Natural</div><h3 data-i18n="w6_name">Selvagem Fermentação Natural</h3><p data-i18n="w6_desc">Vinho natural produzido por pequenos produtores brasileiros. Orgânico, vivo e surpreendente.</p><div class="wine-price">R$ 180</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experiencia">
+  <div class="section-label" data-i18n="exp_label">O espaço</div>
+  <h2 class="section-title" data-i18n="exp_title">Uma noite no Nobre</h2>
+  <div class="section-line"></div>
+  <div class="exp-grid reveal">
+    <div class="exp-item"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&auto=format&fit=crop" alt="sala"/><div class="exp-overlay"><h3 data-i18n="ex1_title">Sala principal</h3><p data-i18n="ex1_desc">18 mesas, iluminação íntima</p></div></div>
+    <div class="exp-item"><img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=700&auto=format&fit=crop" alt="bar"/><div class="exp-overlay"><h3 data-i18n="ex2_title">Bar e adega</h3><p data-i18n="ex2_desc">400 rótulos selecionados</p></div></div>
+    <div class="exp-item"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=700&auto=format&fit=crop" alt="cozinha"/><div class="exp-overlay"><h3 data-i18n="ex3_title">Mesa do chef</h3><p data-i18n="ex3_desc">Vista direta para a cozinha</p></div></div>
+  </div>
+</section>
+
+<section id="avaliacoes">
+  <div class="section-label" data-i18n="testi_label">Reconhecimentos</div>
+  <h2 class="section-title" data-i18n="testi_title">O que dizem sobre o Nobre</h2>
+  <div class="section-line"></div>
+  <div class="testi-grid">
+    <div class="tcard reveal">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p data-i18n="t1">"A melhor refeição da minha vida e já comi nos melhores restaurantes da Europa. O que o chef faz com ingredientes brasileiros é transformador. Voltarei a qualquer custo."</p>
+      <div class="tcard-author"><img class="tcard-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop" alt="Rafael"/><div><div class="tcard-name">Rafael C.</div><div class="tcard-loc">São Paulo, SP</div></div></div>
+    </div>
+    <div class="tcard reveal">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p data-i18n="t2">"We came to Rio specifically to eat at Nobre. The pirarucu ceviche changed everything I thought I knew about Brazilian food. Absolutely world class."</p>
+      <div class="tcard-author"><img class="tcard-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop" alt="Sarah"/><div><div class="tcard-name">Sarah M.</div><div class="tcard-loc">London, UK</div></div></div>
+    </div>
+    <div class="tcard reveal">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p data-i18n="t3">"Cada prato é uma tese sobre o Brasil. Saí do Nobre com vontade de conhecer cada estado do país. Uma noite que mudou minha relação com a gastronomia brasileira."</p>
+      <div class="tcard-author"><img class="tcard-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop" alt="Beatriz"/><div><div class="tcard-name">Beatriz F.</div><div class="tcard-loc">Curitiba, PR</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="section-label" data-i18n="hours_label">Visita</div>
+  <h2 class="section-title" data-i18n="hours_title">Como nos encontrar</h2>
+  <div class="section-line"></div>
+  <div class="info-grid reveal">
+    <div>
+      <ul class="hours-list">
+        <li><span data-i18n="h_ter_sex">Terça a Sexta</span><span data-i18n="h_ter_sex_t">19h - 23h30 (jantar)</span></li>
+        <li><span data-i18n="h_sab">Sábado</span><span data-i18n="h_sab_t">12h - 15h / 19h - 23h30</span></li>
+        <li><span data-i18n="h_dom">Domingo</span><span data-i18n="h_dom_t">12h - 15h (almoço especial)</span></li>
+        <li><span data-i18n="h_seg">Segunda</span><span data-i18n="h_seg_t">Fechado</span></li>
+        <li><span data-i18n="h_end">Endereço</span><span>Rua Dias Ferreira 610, Leblon, Rio de Janeiro</span></li>
+        <li><span data-i18n="h_tel">Telefone</span><span>+55 21 9000-0000</span></li>
+        <li><span data-i18n="h_res">Reserva</span><span data-i18n="h_res_v">Obrigatória — 48h de antecedência</span></li>
+      </ul>
+    </div>
+    <div class="map-wrap"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675!2d-43.2225!3d-22.9839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDU5JzAxLjkiUyA0M8KwMTMnMjEuMCJX!5e0!3m2!1spt!2sbr!4v1600000000000" allowfullscreen loading="lazy"></iframe></div>
+  </div>
+</section>
+
+<section id="reserva">
+  <div class="section-label" data-i18n="res_label">Reservas</div>
+  <h2 class="section-title" data-i18n="res_title">Reserve sua experiência</h2>
+  <div class="section-line"></div>
+  <form class="res-form" onsubmit="handleSubmit(event)">
+    <div class="form-group"><label data-i18n="f_nome">Nome</label><input type="text" data-i18n-ph="f_nome_ph" placeholder="Seu nome" required/></div>
+    <div class="form-group"><label data-i18n="f_email">E-mail</label><input type="email" data-i18n-ph="f_email_ph" placeholder="seu@email.com" required/></div>
+    <div class="form-group"><label data-i18n="f_tel">WhatsApp</label><input type="tel" data-i18n-ph="f_tel_ph" placeholder="+55 21 90000-0000"/></div>
+    <div class="form-group"><label data-i18n="f_pessoas">Pessoas</label><select><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option data-i18n="f_privado">Mesa privada</option></select></div>
+    <div class="form-group"><label data-i18n="f_data">Data</label><input type="date" required/></div>
+    <div class="form-group"><label data-i18n="f_hora">Horário</label><select><option>12:00</option><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option></select></div>
+    <div class="form-group full"><label data-i18n="f_obs">Menu e restrições alimentares</label><textarea data-i18n-ph="f_obs_ph" placeholder="Ex: vegetariano, alergia a frutos do mar, menu harmonizado..."></textarea></div>
+    <button type="submit" class="btn-submit" data-i18n="f_enviar">Confirmar reserva</button>
+  </form>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand"><h3>NOBRE</h3><p data-i18n="footer_desc">Alta gastronomia brasileira no coração do Leblon, Rio de Janeiro. Rua Dias Ferreira 610.</p></div>
+    <div class="footer-col"><h4 data-i18n="footer_nav">Menu</h4><ul><li><a href="#sobre" data-i18n="nav_about">Nossa história</a></li><li><a href="#cardapio" data-i18n="nav_menu">Menu</a></li><li><a href="#experiencia" data-i18n="nav_exp">Experiência</a></li><li><a href="#reserva" data-i18n="nav_reserve">Reservar</a></li></ul></div>
+    <div class="footer-col"><h4 data-i18n="footer_contact">Contato</h4><ul><li><a href="tel:+552190000000">+55 21 9000-0000</a></li><li><a href="mailto:reservas@nobre.com.br">reservas@nobre.com.br</a></li><li><a href="https://wa.me/4916364141​97" target="_blank">WhatsApp</a></li><li><a href="https://maps.google.com" target="_blank" data-i18n="footer_map">Como chegar</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span data-i18n="footer_credit">Criado por <a href="mailto:vinayakganiger445@gmail.com">Vinayak Ganiger</a> · Personalização disponível</span>
+    <span>© 2025 Nobre</span>
+  </div>
+</footer>
+
+<script>
+const translations={
+  pt:{
+    nav_about:'Nossa história',nav_menu:'Menu',nav_exp:'Experiência',nav_hours:'Horários',nav_reserve:'Reservar',
+    dark_mode:'Modo claro',cta_float:'Reservar',
+    hero_orn:'◆ \u00a0 Alta Gastronomia Brasileira \u00a0 ◆',
+    hero_desc:'Ingredientes brasileiros excepcionais encontram técnica contemporânea em um menu degustação que celebra a biodiversidade do nosso país. Uma noite no Nobre é uma experiência que não se esquece.',
+    hero_btn1:'Ver o menu',hero_btn2:'Reservar uma noite',
+    about_label:'Nossa filosofia',about_title:'Alta gastronomia com alma brasileira',
+    about_p1:'O Nobre nasceu de uma convicção: o Brasil tem os ingredientes mais extraordinários do mundo. A Amazônia, o Cerrado, o Pantanal, o litoral — cada bioma oferece sabores únicos que o mundo ainda está descobrindo.',
+    about_p2:'Nosso chef percorre o país todos os anos, construindo relações com agricultores, pescadores e extrativistas. Do tucupi paraense ao queijo artesanal mineiro, cada elemento no prato tem uma história e um produtor com nome.',
+    about_p3:'O resultado é uma cozinha que é genuinamente brasileira, tecnicamente precisa e emocionalmente marcante. Você não vai esquecer a primeira vez que comeu no Nobre.',
+    award_stars:'Guia Michelin',award_tables:'mesas',award_since:'Fundado',
+    menu_label:'A nossa cozinha',menu_title:'Menu & Experiências',
+    tab_deg:'Degustação',tab_carte:'À la Carte',tab_adega:'Adega',
+    d1_name:'Boas-vindas da Floresta',d1_desc:'Castanha-do-pará defumada, cumaru e gel de tucumã. Uma saudação à Amazônia.',d1_note:'incluso',
+    d2_name:'Ostras do Litoral Catarinense',d2_desc:'Ostras de Florianópolis, leite de coco, vinagrete de maracujá e tucupi amarelo.',
+    d3_name:'Ceviche de Pirarucu',d3_desc:'Pirarucu da Amazônia marinado em leite de tigre com tucupi e jambu fresco.',
+    d4_name:'Caldo de Pirão Negro',d4_desc:'Pirão negro com tinta de lula, camarão-rosa do Nordeste e crocante de tapioca.',
+    d5_name:'Costela de Boi do Pantanal',d5_desc:'72 horas de cocção lenta, farofa de castanha, vinagrete de pequi e purê de mandioca-baroa.',
+    d6_name:'Queijo Canastra com Goiabada',d6_desc:'Queijo Canastra envelhecido 60 dias, geleia de goiaba artesanal e mel de abelha nativa.',
+    d7_name:'Cremoso de Cupuaçu',d7_desc:'Cremoso de cupuaçu, ganache de cacau selvagem, sorvete de açaí e ouro em folha.',
+    d8_name:'Mignardises da Floresta',d8_desc:'Brigadeiro de cacau selvagem, bombom de cupuaçu e caramelo de guaraná. Tchau da cozinha.',d8_note:'incluso',
+    promo_title:'Menu Degustação Completo',promo_desc:'8 tempos com harmonização de vinhos nacionais e internacionais. Reserva obrigatória com 48h de antecedência. Grupos de até 18 pessoas.',promo_pp:'por pessoa',promo_btn:'Reservar',
+    c1_name:'Tartar de Atum com Açaí',c1_desc:'Atum-rabilho, pasta de açaí do Pará, caviar de tapioca e emulsão de dendê branco.',
+    c2_name:'Vieira com Leite de Castanha',c2_desc:'Vieira selada, leite de castanha-do-pará, pó de café e chips de banana-da-terra.',
+    c3_name:'Picanha Black Angus',c3_desc:'Picanha maturada 30 dias, vinagrete de pequi, farofa de castanha e purê de mandioca.',
+    c4_name:'Robalo do Nordeste',c4_desc:'Robalo inteiro assado em folha de bananeira, caldinho de caranguejo e pirão de leite de coco.',
+    c5_name:'Soufflé de Cacau da Bahia',c5_desc:'Soufflé de cacau Valrhona 72%, sorvete de cumaru e caramelo de rapadura.',
+    c6_name:'Esfera de Maracujá',c6_desc:'Esferificação de maracujá, espuma de tapioca, geleia de manga e açúcar de baunilha.',
+    c_entradas:'Entrada',c_pratos:'Prato',c_sobremesas:'Sobremesa',
+    w_rs:'Serra Gaúcha, RS',w_vale:'Vale do São Francisco, BA',w_nat:'Brasil · Natural',
+    w1_name:'Cave Geisse Brut Rosé',w1_desc:'Pinot Noir da Serra Gaúcha, perlage fina e elegante. O melhor espumante brasileiro.',
+    w2_name:'Miolo Lote 43',w2_desc:'Blend tinto do nordeste brasileiro, taninos sedosos, frutas negras e tabaco.',
+    w3_name:'Catena Zapata Adrianna',w3_desc:'Malbec de altitude, complexidade excepcional, um dos melhores da América do Sul.',
+    w4_name:'Quinta do Crasto Reserva',w4_desc:'Blend de castas portuguesas, estruturado e elegante. Harmoniza perfeitamente com a picanha.',
+    w5_name:'Domaine Leflaive Puligny',w5_desc:'Chardonnay de Puligny-Montrachet, mineral, amanteigado. Perfeito com as ostras e o pirarucu.',
+    w6_name:'Selvagem Fermentação Natural',w6_desc:'Vinho natural produzido por pequenos produtores brasileiros. Orgânico, vivo e surpreendente.',
+    exp_label:'O espaço',exp_title:'Uma noite no Nobre',
+    ex1_title:'Sala principal',ex1_desc:'18 mesas, iluminação íntima',
+    ex2_title:'Bar e adega',ex2_desc:'400 rótulos selecionados',
+    ex3_title:'Mesa do chef',ex3_desc:'Vista direta para a cozinha',
+    testi_label:'Reconhecimentos',testi_title:'O que dizem sobre o Nobre',
+    t1:'"A melhor refeição da minha vida e já comi nos melhores restaurantes da Europa. O que o chef faz com ingredientes brasileiros é transformador. Voltarei a qualquer custo."',
+    t2:'"We came to Rio specifically to eat at Nobre. The pirarucu ceviche changed everything I thought I knew about Brazilian food. Absolutely world class."',
+    t3:'"Cada prato é uma tese sobre o Brasil. Saí do Nobre com vontade de conhecer cada estado do país. Uma noite que mudou minha relação com a gastronomia brasileira."',
+    hours_label:'Visita',hours_title:'Como nos encontrar',
+    h_ter_sex:'Terça a Sexta',h_ter_sex_t:'19h - 23h30 (jantar)',
+    h_sab:'Sábado',h_sab_t:'12h - 15h / 19h - 23h30',
+    h_dom:'Domingo',h_dom_t:'12h - 15h (almoço especial)',
+    h_seg:'Segunda',h_seg_t:'Fechado',
+    h_end:'Endereço',h_tel:'Telefone',h_res:'Reserva',h_res_v:'Obrigatória — 48h de antecedência',
+    res_label:'Reservas',res_title:'Reserve sua experiência',
+    f_nome:'Nome',f_nome_ph:'Seu nome',f_email:'E-mail',f_email_ph:'seu@email.com',
+    f_tel:'WhatsApp',f_tel_ph:'+55 21 90000-0000',f_pessoas:'Pessoas',f_privado:'Mesa privada',
+    f_data:'Data',f_hora:'Horário',f_obs:'Menu e restrições alimentares',
+    f_obs_ph:'Ex: vegetariano, alergia a frutos do mar, menu harmonizado...',
+    f_enviar:'Confirmar reserva',
+    footer_desc:'Alta gastronomia brasileira no coração do Leblon, Rio de Janeiro. Rua Dias Ferreira 610.',
+    footer_nav:'Menu',footer_contact:'Contato',footer_map:'Como chegar',
+    footer_credit:'Criado por <a href="mailto:vinayakganiger445@gmail.com">Vinayak Ganiger</a> · Personalização disponível',
+  },
+  en:{
+    nav_about:'Our story',nav_menu:'Menu',nav_exp:'Experience',nav_hours:'Hours',nav_reserve:'Reserve',
+    dark_mode:'Light mode',cta_float:'Reserve',
+    hero_orn:'◆ \u00a0 Brazilian Fine Dining \u00a0 ◆',
+    hero_desc:'Exceptional Brazilian ingredients meet contemporary technique in a tasting menu celebrating the biodiversity of our country. A night at Nobre is an experience you will not forget.',
+    hero_btn1:'View the menu',hero_btn2:'Reserve a night',
+    about_label:'Our philosophy',about_title:'Fine dining with a Brazilian soul',
+    about_p1:'Nobre was born from a conviction: Brazil has the most extraordinary ingredients in the world. The Amazon, the Cerrado, the Pantanal, the coast — every biome offers unique flavours the world is still discovering.',
+    about_p2:'Our chef travels the country every year, building relationships with farmers, fishermen and foragers. From Pará tucupi to artisan Minas cheese, every element on the plate has a story and a producer with a name.',
+    about_p3:'The result is a cuisine that is genuinely Brazilian, technically precise and emotionally striking. You will not forget the first time you ate at Nobre.',
+    award_stars:'Michelin Guide',award_tables:'tables',award_since:'Founded',
+    menu_label:'Our kitchen',menu_title:'Menu & Experiences',
+    tab_deg:'Tasting Menu',tab_carte:'À la Carte',tab_adega:'Wine Cellar',
+    d1_name:'Forest Welcome',d1_desc:'Smoked Brazil nut, cumaru and tucumã gel. A salute to the Amazon.',d1_note:'included',
+    d2_name:'Santa Catarina Oysters',d2_desc:'Florianópolis oysters, coconut milk, passion fruit vinaigrette and yellow tucupi.',
+    d3_name:'Pirarucu Ceviche',d3_desc:'Amazonian pirarucu marinated in tiger\'s milk with tucupi and fresh jambu.',
+    d4_name:'Black Pirão Broth',d4_desc:'Black pirão with squid ink, pink northeastern shrimp and tapioca crisp.',
+    d5_name:'Pantanal Beef Rib',d5_desc:'72 hours slow-cooked, Brazil nut farofa, pequi vinaigrette and baroa potato purée.',
+    d6_name:'Canastra Cheese with Guava',d6_desc:'60-day aged Canastra cheese, artisan guava jam and native bee honey.',
+    d7_name:'Cupuaçu Cremoso',d7_desc:'Cupuaçu cremoso, wild cacao ganache, açaí sorbet and gold leaf.',
+    d8_name:'Forest Mignardises',d8_desc:'Wild cacao brigadeiro, cupuaçu bonbon and guaraná caramel. A farewell from the kitchen.',d8_note:'included',
+    promo_title:'Full Tasting Menu',promo_desc:'8 courses with national and international wine pairing. Reservation required 48h in advance. Groups of up to 18.',promo_pp:'per person',promo_btn:'Reserve',
+    c1_name:'Tuna Tartare with Açaí',c1_desc:'Bluefin tuna, Pará açaí paste, tapioca caviar and white dendê emulsion.',
+    c2_name:'Scallop with Brazil Nut Milk',c2_desc:'Seared scallop, Brazil nut milk, coffee powder and plantain chips.',
+    c3_name:'Black Angus Picanha',c3_desc:'30-day aged picanha, pequi vinaigrette, Brazil nut farofa and cassava purée.',
+    c4_name:'Northeastern Sea Bass',c4_desc:'Whole sea bass baked in banana leaf, crab broth and coconut milk pirão.',
+    c5_name:'Bahian Cacao Soufflé',c5_desc:'Valrhona 72% cacao soufflé, cumaru ice cream and rapadura caramel.',
+    c6_name:'Passion Fruit Sphere',c6_desc:'Passion fruit spherification, tapioca foam, mango jam and vanilla sugar.',
+    c_entradas:'Starter',c_pratos:'Main',c_sobremesas:'Dessert',
+    w_rs:'Serra Gaúcha, RS',w_vale:'São Francisco Valley, BA',w_nat:'Brazil · Natural',
+    w1_name:'Cave Geisse Brut Rosé',w1_desc:'Pinot Noir from Serra Gaúcha, fine and elegant bubbles. Brazil\'s finest sparkling wine.',
+    w2_name:'Miolo Lote 43',w2_desc:'Red blend from northeastern Brazil, silky tannins, dark fruit and tobacco.',
+    w3_name:'Catena Zapata Adrianna',w3_desc:'High-altitude Malbec, exceptional complexity, one of South America\'s finest.',
+    w4_name:'Quinta do Crasto Reserva',w4_desc:'Portuguese varietal blend, structured and elegant. Pairs perfectly with picanha.',
+    w5_name:'Domaine Leflaive Puligny',w5_desc:'Puligny-Montrachet Chardonnay, mineral and buttery. Perfect with oysters and pirarucu.',
+    w6_name:'Selvagem Natural Fermentation',w6_desc:'Natural wine from small Brazilian producers. Organic, alive and surprising.',
+    exp_label:'The space',exp_title:'A night at Nobre',
+    ex1_title:'Main dining room',ex1_desc:'18 tables, intimate lighting',
+    ex2_title:'Bar and wine cellar',ex2_desc:'400 curated labels',
+    ex3_title:"Chef's table",ex3_desc:'Direct view of the kitchen',
+    testi_label:'Accolades',testi_title:'What people say about Nobre',
+    t1:'"The best meal of my life and I have eaten in the best restaurants in Europe. What the chef does with Brazilian ingredients is transformative. I will return at any cost."',
+    t2:'"We came to Rio specifically to eat at Nobre. The pirarucu ceviche changed everything I thought I knew about Brazilian food. Absolutely world class."',
+    t3:'"Every course is a thesis on Brazil. I left Nobre wanting to visit every state in the country. A night that changed my relationship with Brazilian gastronomy."',
+    hours_label:'Visit',hours_title:'How to find us',
+    h_ter_sex:'Tuesday to Friday',h_ter_sex_t:'7pm - 11:30pm (dinner)',
+    h_sab:'Saturday',h_sab_t:'12pm - 3pm / 7pm - 11:30pm',
+    h_dom:'Sunday',h_dom_t:'12pm - 3pm (special lunch)',
+    h_seg:'Monday',h_seg_t:'Closed',
+    h_end:'Address',h_tel:'Phone',h_res:'Reservation',h_res_v:'Required — 48h in advance',
+    res_label:'Reservations',res_title:'Reserve your experience',
+    f_nome:'Name',f_nome_ph:'Your name',f_email:'Email',f_email_ph:'your@email.com',
+    f_tel:'WhatsApp',f_tel_ph:'+55 21 90000-0000',f_pessoas:'Guests',f_privado:'Private table',
+    f_data:'Date',f_hora:'Time',f_obs:'Menu & dietary requirements',
+    f_obs_ph:'E.g. vegetarian, shellfish allergy, wine pairing...',
+    f_enviar:'Confirm reservation',
+    footer_desc:'Brazilian fine dining in the heart of Leblon, Rio de Janeiro. Rua Dias Ferreira 610.',
+    footer_nav:'Menu',footer_contact:'Contact',footer_map:'Directions',
+    footer_credit:'Built by <a href="mailto:vinayakganiger445@gmail.com">Vinayak Ganiger</a> · Customisation available',
+  }
+};
+
+let currentLang=localStorage.getItem('nobre_lang')||'pt';
+function applyLang(lang){
+  currentLang=lang;localStorage.setItem('nobre_lang',lang);
+  document.documentElement.lang=lang;
+  const t=translations[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    if(t[k]!==undefined){if(k==='footer_credit'){el.innerHTML=t[k];}else{el.textContent=t[k];}}
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(t[k]!==undefined)el.placeholder=t[k];});
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+}
+document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
+applyLang(currentLang);
+
+// defaults dark — toggler switches to light
+let light=localStorage.getItem('nobre_light')==='true';
+function applyLight(){
+  document.body.classList.toggle('light-mode',light);
+  document.getElementById('darkToggle').textContent=light?(currentLang==='pt'?'Modo escuro':'Dark mode'):(currentLang==='pt'?'Modo claro':'Light mode');
+}
+document.getElementById('darkToggle').addEventListener('click',()=>{light=!light;localStorage.setItem('nobre_light',light);applyLight();});
+applyLight();
+
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('hide'),1000));
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>60));
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+}));
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+const cta=document.getElementById('floating-cta');
+new IntersectionObserver(entries=>cta.classList.toggle('hidden',entries[0].isIntersecting),{threshold:.1}).observe(document.getElementById('reserva'));
+function handleSubmit(e){e.preventDefault();alert(currentLang==='pt'?'Reserva enviada! Confirmaremos por e-mail em até 24h. Obrigado!':'Reservation sent! We will confirm by email within 24h. Thank you!');e.target.reset();}
+</script>
+</body>
+</html>

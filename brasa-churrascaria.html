@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<!--
+  BRASA CHURRASCARIA — Brazilian BBQ Restaurant Website Template
+  Created by Vinayak Ganiger x Claude (Anthropic AI)
+  For customisation: vinayakganiger445@gmail.com
+  WhatsApp: https://wa.me/4916364141​97
+-->
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Brasa Churrascaria — Rodízio de Carnes</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --fire:#C0392B;
+  --amber:#E8A21A;
+  --charcoal:#1A1A1A;
+  --smoke:#2A2A2A;
+  --cream:#F5EFE6;
+  --ash:#888;
+  --dark-bg:#111111;
+  --dark-surface:#1E1E1E;
+  --dark-border:#2E2E2E;
+  --dark-text:#EAE4D6;
+  --shadow:0 4px 24px rgba(0,0,0,.25);
+  --radius:6px;
+  --transition:all .3s ease;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--charcoal);overflow-x:hidden;transition:background .3s,color .3s}
+body.dark-mode{background:var(--dark-bg);color:var(--dark-text)}
+
+/* LOADER */
+#loader{position:fixed;inset:0;background:var(--charcoal);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .6s}
+#loader.hide{opacity:0;pointer-events:none}
+.flame{font-size:3rem;animation:flicker 0.8s ease-in-out infinite alternate}
+@keyframes flicker{0%{transform:scaleY(1) rotate(-2deg);filter:brightness(1)}100%{transform:scaleY(1.15) rotate(2deg);filter:brightness(1.3)}}
+.loader-name{font-family:'Barlow Condensed',sans-serif;color:#fff;font-size:2.2rem;letter-spacing:.2em;text-transform:uppercase;margin-top:.75rem;font-weight:800}
+.loader-name span{color:var(--amber)}
+.loader-sub{color:var(--ash);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;margin-top:.4rem}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:70px;transition:var(--transition)}
+nav.scrolled{background:rgba(26,26,26,.97);backdrop-filter:blur(10px);box-shadow:0 2px 12px rgba(0,0,0,.3)}
+body.dark-mode nav.scrolled{background:rgba(17,17,17,.98)}
+.nav-logo{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;color:#fff;text-decoration:none;letter-spacing:.1em;font-weight:800;text-transform:uppercase}
+.nav-logo .b{color:var(--fire)}.nav-logo .r{color:var(--amber)}.nav-logo .a{color:#fff}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-right{display:flex;align-items:center;gap:.9rem}
+.lang-switcher{display:flex;background:rgba(255,255,255,.12);border-radius:20px;overflow:hidden}
+.lang-btn{border:none;background:transparent;color:rgba(255,255,255,.6);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;padding:.3rem .8rem;cursor:pointer;transition:var(--transition);letter-spacing:.08em}
+.lang-btn.active{background:var(--amber);color:var(--charcoal)}
+.dark-toggle{background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.8);padding:.3rem .8rem;border-radius:20px;font-size:.72rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;transition:var(--transition)}
+.dark-toggle:hover{background:rgba(255,255,255,.12)}
+.nav-reserve{background:var(--fire);color:#fff;padding:.42rem 1.2rem;border-radius:var(--radius);font-size:.78rem;font-weight:700;text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:var(--transition);white-space:nowrap}
+.nav-reserve:hover{background:#a02a1f}
+.menu-btn{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.menu-btn span{width:24px;height:2px;background:var(--amber);border-radius:2px}
+
+/* HERO */
+.hero{height:100vh;min-height:600px;position:relative;display:flex;align-items:center;overflow:hidden}
+.hero-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1544025162-d76694265947?w=1800&auto=format&fit=crop') center/cover no-repeat;filter:brightness(.4)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,26,26,.9) 0%,rgba(192,57,43,.2) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 8%;max-width:760px}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(232,162,26,.15);border:1px solid rgba(232,162,26,.3);padding:.4rem 1rem;border-radius:20px;margin-bottom:1.5rem}
+.hero-badge span{color:var(--amber);font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600}
+.hero h1{font-family:'Barlow Condensed',sans-serif;color:#fff;font-size:clamp(3.5rem,7vw,6.5rem);line-height:.95;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin-bottom:1.5rem}
+.hero h1 .fire-word{color:var(--fire)}
+.hero h1 .amber-word{color:var(--amber)}
+.hero-desc{color:rgba(255,255,255,.75);font-size:1rem;line-height:1.75;margin-bottom:2.5rem;max-width:520px}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-fire{background:var(--fire);color:#fff;padding:.85rem 2.2rem;border-radius:var(--radius);font-weight:700;font-size:.88rem;text-decoration:none;transition:var(--transition);text-transform:uppercase;letter-spacing:.06em}
+.btn-fire:hover{background:#a02a1f;transform:translateY(-2px)}
+.btn-amber{background:var(--amber);color:var(--charcoal);padding:.85rem 2.2rem;border-radius:var(--radius);font-weight:700;font-size:.88rem;text-decoration:none;transition:var(--transition);text-transform:uppercase;letter-spacing:.06em}
+.btn-amber:hover{background:#c8891a;transform:translateY(-2px)}
+.hero-stats{position:absolute;bottom:3rem;left:8%;right:8%;display:flex;gap:3rem;flex-wrap:wrap}
+.h-stat{text-align:center}
+.h-stat strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:2rem;color:var(--amber);font-weight:800;line-height:1}
+.h-stat span{font-size:.68rem;color:rgba(255,255,255,.45);letter-spacing:.12em;text-transform:uppercase}
+
+/* SECTIONS */
+section{padding:6rem 8%}
+.section-label{color:var(--fire);font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;font-weight:700;margin-bottom:.75rem}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,4vw,3.2rem);color:var(--charcoal);line-height:1.1;text-transform:uppercase;letter-spacing:.02em;margin-bottom:1rem;font-weight:800}
+body.dark-mode .section-title{color:var(--dark-text)}
+.section-line{width:50px;height:3px;background:var(--fire);border-radius:2px;margin:0 0 2rem}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-img-wrap{position:relative}
+.about-img{width:100%;height:500px;object-fit:cover;border-radius:var(--radius)}
+.about-badge-box{position:absolute;bottom:-1.5rem;right:-1.5rem;background:var(--fire);color:#fff;padding:1.2rem 1.5rem;border-radius:var(--radius);text-align:center;box-shadow:var(--shadow)}
+.about-badge-box strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;line-height:1;font-weight:800}
+.about-badge-box span{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;opacity:.9}
+.about-text p{color:var(--ash);line-height:1.8;margin-bottom:1.2rem;font-size:.94rem}
+body.dark-mode .about-text p{color:#aaa}
+.icons-row{display:flex;gap:2.5rem;margin-top:2rem;flex-wrap:wrap}
+.icon-item{display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.icon-item span:first-child{font-size:1.8rem}
+.icon-item span:last-child{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ash);text-align:center}
+
+/* RODIZIO */
+.rodizio-section{background:var(--charcoal)}
+body.dark-mode .rodizio-section{background:var(--dark-surface)}
+.rodizio-section .section-title{color:#fff}
+.rodizio-section .section-label{color:var(--amber);opacity:.8}
+.rodizio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:rgba(255,255,255,.06);margin-top:2.5rem}
+.rodizio-card{background:var(--charcoal);padding:2rem;transition:background .3s}
+.rodizio-card:hover{background:rgba(255,255,255,.05)}
+body.dark-mode .rodizio-card{background:var(--dark-surface)}
+.r-icon{font-size:1.8rem;margin-bottom:.75rem;display:block}
+.rodizio-card h3{font-family:'Barlow Condensed',sans-serif;color:#fff;font-size:1.2rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem;font-weight:700}
+.rodizio-card p{color:rgba(255,255,255,.45);font-size:.82rem;line-height:1.65}
+.rodizio-price-box{background:rgba(232,162,26,.1);border:1px solid rgba(232,162,26,.2);padding:2rem;margin-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.rp-text h3{font-family:'Barlow Condensed',sans-serif;color:#fff;font-size:1.4rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem;font-weight:700}
+.rp-text p{color:rgba(255,255,255,.45);font-size:.82rem;line-height:1.6}
+.rp-price{text-align:right}
+.rp-price strong{font-family:'Barlow Condensed',sans-serif;color:var(--amber);font-size:2.8rem;font-weight:800;line-height:1;display:block}
+.rp-price span{font-size:.68rem;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase}
+
+/* MENU */
+.menu-section{background:var(--cream)}
+body.dark-mode .menu-section{background:var(--dark-bg)}
+.menu-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:3rem}
+.tab-btn{background:none;border:2px solid transparent;padding:.5rem 1.4rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:700;cursor:pointer;color:var(--ash);transition:var(--transition);text-transform:uppercase;letter-spacing:.06em}
+.tab-btn.active{background:var(--fire);color:#fff;border-color:var(--fire)}
+.tab-btn:hover:not(.active){border-color:var(--fire);color:var(--fire)}
+.tab-panel{display:none}
+.tab-panel.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+.menu-card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .3s}
+.menu-card:hover{transform:translateY(-4px)}
+body.dark-mode .menu-card{background:var(--dark-surface)}
+.menu-card img{width:100%;height:200px;object-fit:cover}
+.menu-card-body{padding:1.25rem}
+.menu-card-body h3{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;margin-bottom:.3rem;color:var(--charcoal);text-transform:uppercase;letter-spacing:.04em;font-weight:700}
+body.dark-mode .menu-card-body h3{color:var(--dark-text)}
+.menu-card-body p{color:var(--ash);font-size:.83rem;line-height:1.6;margin-bottom:.75rem}
+.card-footer{display:flex;align-items:center;justify-content:space-between}
+.price{font-weight:700;color:var(--fire);font-size:.95rem;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem}
+.chip{font-size:.65rem;background:rgba(192,57,43,.1);color:var(--fire);padding:.2rem .6rem;border-radius:20px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.chip-amber{background:rgba(232,162,26,.15);color:#b07e10}
+
+/* GALLERY */
+.gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:280px 280px;gap:8px;margin-top:2rem}
+.g1{grid-column:1/5;grid-row:1/3}
+.g2{grid-column:5/9;grid-row:1/2}
+.g3{grid-column:9/13;grid-row:1/2}
+.g4{grid-column:5/8;grid-row:2/3}
+.g5{grid-column:8/13;grid-row:2/3}
+.gallery-grid img{width:100%;height:100%;object-fit:cover;border-radius:var(--radius);transition:transform .5s}
+.gallery-grid img:hover{transform:scale(1.03)}
+
+/* TESTIMONIALS */
+.testi-section{background:var(--smoke)}
+body.dark-mode .testi-section{background:var(--dark-surface)}
+.testi-section .section-title{color:#fff}
+.testi-section .section-label{color:rgba(255,255,255,.4)}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-top:2rem}
+.tcard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:1.75rem;transition:var(--transition)}
+.tcard:hover{background:rgba(255,255,255,.09)}
+.stars{color:var(--amber);font-size:1rem;margin-bottom:.9rem;letter-spacing:.1em}
+.tcard p{color:rgba(255,255,255,.65);font-size:.88rem;line-height:1.75;font-style:italic;margin-bottom:1.2rem}
+.tcard-author{display:flex;align-items:center;gap:.75rem}
+.tcard-avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid var(--fire)}
+.tcard-name{font-weight:600;font-size:.85rem;color:#fff}
+.tcard-loc{font-size:.72rem;color:rgba(255,255,255,.35)}
+
+/* HOURS */
+.info-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start}
+.hours-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.hours-list li{display:flex;justify-content:space-between;padding-bottom:.75rem;border-bottom:1px solid rgba(0,0,0,.07);font-size:.9rem}
+body.dark-mode .hours-list li{border-color:var(--dark-border)}
+.hours-list li span:first-child{font-weight:700;color:var(--charcoal);font-family:'Barlow Condensed',sans-serif;font-size:1rem;text-transform:uppercase;letter-spacing:.04em}
+body.dark-mode .hours-list li span:first-child{color:var(--dark-text)}
+.hours-list li span:last-child{color:var(--ash);font-size:.85rem}
+.map-wrap iframe{width:100%;height:340px;border:none;border-radius:var(--radius)}
+
+/* RESERVATION */
+.res-section{background:var(--charcoal)}
+.res-section .section-title{color:#fff}
+.res-section .section-label{color:rgba(232,162,26,.7)}
+.res-form{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2rem;max-width:680px}
+.res-form .full{grid-column:1/-1}
+.form-group{display:flex;flex-direction:column;gap:.4rem}
+.form-group label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.form-group input,.form-group select,.form-group textarea{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);color:#fff;padding:.75rem 1rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--amber)}
+.form-group select option{background:var(--charcoal)}
+.form-group textarea{resize:vertical;min-height:90px}
+.btn-submit{background:var(--fire);color:#fff;border:none;padding:.85rem 2.5rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:var(--transition);text-transform:uppercase;letter-spacing:.06em;margin-top:.5rem}
+.btn-submit:hover{background:#a02a1f;transform:translateY(-1px)}
+
+/* FOOTER */
+footer{background:#111;padding:3.5rem 8% 2rem;border-top:1px solid rgba(255,255,255,.05)}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+.footer-brand h3{font-family:'Barlow Condensed',sans-serif;color:#fff;font-size:1.5rem;letter-spacing:.1em;text-transform:uppercase;font-weight:800;margin-bottom:.75rem}
+.footer-brand h3 .b{color:var(--fire)}
+.footer-brand p{font-size:.82rem;line-height:1.75;color:rgba(255,255,255,.3);max-width:240px}
+.footer-col h4{color:var(--amber);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:1rem;opacity:.7}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.footer-col ul a{color:rgba(255,255,255,.3);text-decoration:none;font-size:.83rem;transition:color .2s}
+.footer-col ul a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:1.5rem;display:flex;justify-content:space-between;font-size:.78rem;color:rgba(255,255,255,.2);flex-wrap:wrap;gap:.5rem}
+.footer-bottom a{color:rgba(255,255,255,.35);text-decoration:none}
+.footer-bottom a:hover{color:#fff}
+
+/* FLOATING CTA */
+#floating-cta{position:fixed;bottom:2rem;right:2rem;background:var(--fire);color:#fff;padding:.75rem 1.5rem;border-radius:30px;font-size:.83rem;font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(192,57,43,.4);transition:var(--transition);z-index:80;text-transform:uppercase;letter-spacing:.06em}
+#floating-cta:hover{background:#a02a1f;transform:translateY(-2px)}
+#floating-cta.hidden{opacity:0;pointer-events:none}
+
+/* MOBILE */
+@media(max-width:900px){
+  .about-grid,.info-grid{grid-template-columns:1fr}
+  .about-badge-box{right:1rem;bottom:-1rem}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .g1,.g2,.g3,.g4,.g5{grid-column:auto;grid-row:auto;height:220px}
+  .res-form{grid-template-columns:1fr}
+  .res-form .full{grid-column:1}
+  .hero-stats{gap:1.5rem}
+}
+@media(max-width:640px){
+  section{padding:4rem 5%}
+  .nav-links,.nav-reserve{display:none}
+  .menu-btn{display:flex}
+  .hero-content{padding:0 5%}
+  .gallery-grid{grid-template-columns:1fr}
+  .g1,.g2,.g3,.g4,.g5{height:200px}
+  .footer-top{grid-template-columns:1fr}
+  .hero-stats{display:none}
+}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="flame">🔥</div>
+  <div class="loader-name"><span>B</span>RASA</div>
+  <div class="loader-sub">Churrascaria · Rodízio de Carnes</div>
+</div>
+
+<a href="#reserva" id="floating-cta" data-i18n="cta_float">Reservar mesa</a>
+
+<nav id="navbar">
+  <a href="#" class="nav-logo"><span class="b">B</span><span class="r">R</span><span class="a">ASA</span></a>
+  <ul class="nav-links">
+    <li><a href="#sobre" data-i18n="nav_about">Nossa história</a></li>
+    <li><a href="#rodizio" data-i18n="nav_rodizio">Rodízio</a></li>
+    <li><a href="#cardapio" data-i18n="nav_menu">Cardápio</a></li>
+    <li><a href="#contato" data-i18n="nav_hours">Horários</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="pt">PT</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <button class="dark-toggle" id="darkToggle" data-i18n="dark_mode">Modo noturno</button>
+    <a href="#reserva" class="nav-reserve" data-i18n="nav_reserve">Reservar</a>
+    <button class="menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span>🔥</span><span data-i18n="hero_badge">Rodízio completo · Desde 1989</span></div>
+    <h1><span class="fire-word">Carne</span><br>na <span class="amber-word">brasa</span></h1>
+    <p class="hero-desc" data-i18n="hero_desc">Picanha, fraldinha, costela, linguiça, frango e muito mais. Rodízio à vontade com os melhores cortes do Brasil, assados na brasa no ponto certo. Vem comer do jeito que brasileiro gosta.</p>
+    <div class="hero-btns">
+      <a href="#rodizio" class="btn-fire" data-i18n="hero_btn1">Ver o rodízio</a>
+      <a href="#reserva" class="btn-amber" data-i18n="hero_btn2">Reservar mesa</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="h-stat"><strong>35</strong><span data-i18n="stat_years">anos de brasa</span></div>
+    <div class="h-stat"><strong>20+</strong><span data-i18n="stat_cuts">cortes no rodízio</span></div>
+    <div class="h-stat"><strong>200</strong><span data-i18n="stat_seats">lugares</span></div>
+    <div class="h-stat"><strong>4.9</strong><span data-i18n="stat_rating">no Google</span></div>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="about-grid">
+    <div class="about-img-wrap reveal">
+      <img class="about-img" src="https://images.unsplash.com/photo-1432139509613-5c4255815697?w=900&auto=format&fit=crop" alt="Brasa churrascaria" loading="lazy"/>
+      <div class="about-badge-box"><strong>1989</strong><span data-i18n="badge_since">Desde</span></div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-label" data-i18n="about_label">Nossa história</div>
+      <h2 class="section-title" data-i18n="about_title">Brasa de verdade desde 1989</h2>
+      <div class="section-line"></div>
+      <p data-i18n="about_p1">O gaúcho Seu Geraldo chegou em São Paulo em 1989 com uma certeza: a carne boa, bem assada, na brasa de madeira, não precisava de truque nem de molho. Só precisava de fogo, sal e paciência.</p>
+      <p data-i18n="about_p2">Hoje a Brasa é uma referência em rodízio no Brasil. A receita não mudou: carnes selecionadas diretamente do produtor, cortes nobres e populares, assados por churrasqueiros com décadas de experiência.</p>
+      <p data-i18n="about_p3">Da picanha ao frango passarinho, do coração ao cupim. Na Brasa, todo corte é tratado com o mesmo respeito. Porque churrasco bom não é só carne — é reunião, é alegria, é Brasil.</p>
+      <div class="icons-row">
+        <div class="icon-item"><span>🥩</span><span data-i18n="icon_carne">Carne própria</span></div>
+        <div class="icon-item"><span>🔥</span><span data-i18n="icon_brasa">Brasa de lenha</span></div>
+        <div class="icon-item"><span>🧂</span><span data-i18n="icon_sal">Sal grosso</span></div>
+        <div class="icon-item"><span>🤝</span><span data-i18n="icon_prod">Produtores parceiros</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rodizio" class="rodizio-section">
+  <div class="section-label" data-i18n="rod_label">O que tem no espeto</div>
+  <h2 class="section-title" data-i18n="rod_title">O Rodízio da Brasa</h2>
+  <div class="section-line" style="background:var(--amber)"></div>
+  <div class="rodizio-grid">
+    <div class="rodizio-card reveal"><span class="r-icon">🥩</span><h3 data-i18n="r1_name">Picanha</h3><p data-i18n="r1_desc">A rainha do churrasco brasileiro. Corte nobre, capa de gordura intacta, sal grosso e brasa forte.</p></div>
+    <div class="rodizio-card reveal"><span class="r-icon">🔥</span><h3 data-i18n="r2_name">Fraldinha</h3><p data-i18n="r2_desc">Fibras longas, muito sabor, menos gordura. Assada lentamente na temperatura certa.</p></div>
+    <div class="rodizio-card reveal"><span class="r-icon">🦴</span><h3 data-i18n="r3_name">Costela Janela</h3><p data-i18n="r3_desc">Assada por horas até desprender do osso. A costela que todo churrasqueiro quer fazer, mas poucos conseguem.</p></div>
+    <div class="rodizio-card reveal"><span class="r-icon">🍖</span><h3 data-i18n="r4_name">Cupim</h3><p data-i18n="r4_desc">Corte característico do gado zebuíno brasileiro. Marmoreado, suculento, quase um ritual.</p></div>
+    <div class="rodizio-card reveal"><span class="r-icon">🌿</span><h3 data-i18n="r5_name">Maminha</h3><p data-i18n="r5_desc">Macia, suave e perfeita. Ideal para quem prefere um corte menos gorduroso com muita maciez.</p></div>
+    <div class="rodizio-card reveal"><span class="r-icon">🐔</span><h3 data-i18n="r6_name">Coração de Frango</h3><p data-i18n="r6_desc">O petisco mais querido do churrasco brasileiro. Temperado na véspera, passado na grelha quente.</p></div>
+    <div class="rodizio-card reveal"><span class="r-icon">🍗</span><h3 data-i18n="r7_name">Frango na Brasa</h3><p data-i18n="r7_desc">Sobrecoxa e coxa marinadas no alho e limão. Pele crocante, carne suculenta por dentro.</p></div>
+    <div class="rodizio-card reveal"><span class="r-icon">🥓</span><h3 data-i18n="r8_name">Linguiça Artesanal</h3><p data-i18n="r8_desc">Feita por produtor parceiro em Minas. Temperada com ervas, assada até estourar de gosto.</p></div>
+    <div class="rodizio-card reveal"><span class="r-icon">🐑</span><h3 data-i18n="r9_name">Cordeiro</h3><p data-i18n="r9_desc">Aos fins de semana. Costela de cordeiro temperada no alho-poró, alecrim e azeite. Para os entendidos.</p></div>
+  </div>
+  <div class="rodizio-price-box reveal">
+    <div class="rp-text">
+      <h3 data-i18n="promo_title">Rodízio Completo · À Vontade</h3>
+      <p data-i18n="promo_desc">Todos os cortes acima + salada caprichada + pão de alho artesanal + acompanhamentos. Refrigerante incluso. Bebidas alcoólicas à parte.</p>
+    </div>
+    <div class="rp-price">
+      <strong>R$ 89</strong>
+      <span data-i18n="promo_pp">por pessoa</span>
+    </div>
+  </div>
+</section>
+
+<section id="cardapio" class="menu-section">
+  <div class="section-label" data-i18n="menu_label">Além do rodízio</div>
+  <h2 class="section-title" data-i18n="menu_title">Acompanhamentos e bebidas</h2>
+  <div class="section-line"></div>
+  <div class="menu-tabs">
+    <button class="tab-btn active" data-tab="acomp" data-i18n="tab_acomp">Acompanhamentos</button>
+    <button class="tab-btn" data-tab="porcoes" data-i18n="tab_porcoes">Porções</button>
+    <button class="tab-btn" data-tab="beb" data-i18n="tab_beb">Bebidas</button>
+    <button class="tab-btn" data-tab="sobr" data-i18n="tab_sobr">Sobremesas</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-acomp">
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&auto=format&fit=crop" alt="Vinagrete" loading="lazy"/>
+      <div class="menu-card-body"><h3 data-i18n="ac1_name">Vinagrete Clássico</h3><p data-i18n="ac1_desc">Tomate, cebola, pimentão e salsa. Temperado na hora com azeite e limão. Indispensável.</p><div class="card-footer"><span class="price">incluso</span><span class="chip" data-i18n="c_classic">Clássico</span></div></div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&auto=format&fit=crop" alt="Farofa" loading="lazy"/>
+      <div class="menu-card-body"><h3 data-i18n="ac2_name">Farofa de Manteiga</h3><p data-i18n="ac2_desc">Farofa de mandioca torrada na manteiga, com bacon crocante e cheiro-verde. Impossível resistir.</p><div class="card-footer"><span class="price">incluso</span><span class="chip" data-i18n="c_classic">Clássico</span></div></div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&auto=format&fit=crop" alt="Arroz feijão" loading="lazy"/>
+      <div class="menu-card-body"><h3 data-i18n="ac3_name">Arroz e Feijão</h3><p data-i18n="ac3_desc">Arroz soltinho e feijão carioquinha temperado. O clássico brasileiro que nunca abandona ninguém.</p><div class="card-footer"><span class="price">incluso</span><span class="chip" data-i18n="c_brasil">Brasil</span></div></div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop" alt="Pão de alho" loading="lazy"/>
+      <div class="menu-card-body"><h3 data-i18n="ac4_name">Pão de Alho Artesanal</h3><p data-i18n="ac4_desc">Pão francês, manteiga, alho, cheiro-verde e queijo coalho. Assado na boca do forno na hora.</p><div class="card-footer"><span class="price">incluso</span><span class="chip chip-amber" data-i18n="c_fav">Favorito</span></div></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-porcoes">
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&fit=crop" alt="Provoleta" loading="lazy"/>
+      <div class="menu-card-body"><h3 data-i18n="p1_name">Provoleta na Grelha</h3><p data-i18n="p1_desc">Queijo provolone grelhado com orégano e azeite. Crocante por fora, derretido por dentro. R$ 28.</p><div class="card-footer"><span class="price">R$ 28</span><span class="chip chip-amber" data-i18n="c_fav">Favorito</span></div></div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1626200419199-391ae4be7a41?w=600&auto=format&fit=crop" alt="Mandioca frita" loading="lazy"/>
+      <div class="menu-card-body"><h3 data-i18n="p2_name">Mandioca Frita</h3><p data-i18n="p2_desc">Mandioca cozida e frita na hora, crocante e macia. Com molho de ervas ou vinagrete. Porção para 2.</p><div class="card-footer"><span class="price">R$ 24</span><span class="chip" data-i18n="c_brasil">Brasil</span></div></div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1551248429-40975aa4de74?w=600&auto=format&fit=crop" alt="Coxinha" loading="lazy"/>
+      <div class="menu-card-body"><h3 data-i18n="p3_name">Coxinha do Brasa</h3><p data-i18n="p3_desc">Coxinha de frango com catupiry, massa crocante e suculenta. 6 unidades por porção.</p><div class="card-footer"><span class="price">R$ 32</span><span class="chip" data-i18n="c_classic">Clássico</span></div></div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1432139509613-5c4255815697?w=600&auto=format&fit=crop" alt="Picanha extra" loading="lazy"/>
+      <div class="menu-card-body"><h3 data-i18n="p4_name">Picanha Extra 300g</h3><p data-i18n="p4_desc">Para quem quer mais. Corte individual de picanha assada na hora, fora do rodízio.</p><div class="card-footer"><span class="price">R$ 68</span><span class="chip chip-amber" data-i18n="c_premium">Premium</span></div></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-beb">
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=600&auto=format&fit=crop" alt="Caipirinha" loading="lazy"/>
+      <div class="menu-card-body"><h3 data-i18n="b1_name">Caipirinha Tradicional</h3><p data-i18n="b1_desc">Cachaça artesanal de alambique, limão, açúcar de cana e gelo. O drinque do churrasco.</p><div class="card-footer"><span class="price">R$ 18</span><span class="chip" data-i18n="c_brasil">Brasil</span></div></div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&auto=format&fit=crop" alt="Cerveja" loading="lazy"/>
+      <div class="menu-card-body"><h3 data-i18n="b2_name">Cerveja Gelada</h3><p data-i18n="b2_desc">Long neck nacional ou importada, sempre geladíssima. Porque churrasco sem cerveja não tem graça.</p><div class="card-footer"><span class="price">R$ 12</span><span class="chip chip-amber" data-i18n="c_fav">Favorito</span></div></div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&auto=format&fit=crop" alt="Suco" loading="lazy"/>
+      <div class="menu-card-body"><h3 data-i18n="b3_name">Suco de Fruta</h3><p data-i18n="b3_desc">Laranja, abacaxi, manga ou melancia. Batido na hora, sem conservante, do jeito certo.</p><div class="card-footer"><span class="price">R$ 10</span><span class="chip" data-i18n="c_classic">Clássico</span></div></div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1547595628-c61a29f496f0?w=600&auto=format&fit=crop" alt="Vinho" loading="lazy"/>
+      <div class="menu-card-body"><h3 data-i18n="b4_name">Vinho da Casa</h3><p data-i18n="b4_desc">Tinto ou branco selecionado pela casa para harmonizar com os cortes. Taça ou garrafa.</p><div class="card-footer"><span class="price">R$ 16</span><span class="chip" data-i18n="c_premium">Premium</span></div></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-sobr">
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&auto=format&fit=crop" alt="Pudim" loading="lazy"/>
+      <div class="menu-card-body"><h3 data-i18n="s1_name">Pudim de Leite</h3><p data-i18n="s1_desc">Pudim cremoso de leite condensado com calda de caramelo. O clássico brasileiro que fecha qualquer refeição.</p><div class="card-footer"><span class="price">R$ 16</span><span class="chip" data-i18n="c_classic">Clássico</span></div></div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&auto=format&fit=crop" alt="Mousse chocolate" loading="lazy"/>
+      <div class="menu-card-body"><h3 data-i18n="s2_name">Mousse de Chocolate</h3><p data-i18n="s2_desc">Mousse aerado de chocolate ao leite, chantilly fresco e raspas de chocolate amargo.</p><div class="card-footer"><span class="price">R$ 18</span><span class="chip chip-amber" data-i18n="c_fav">Favorito</span></div></div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1517673132405-a56a62b18caf?w=600&auto=format&fit=crop" alt="Sorvete" loading="lazy"/>
+      <div class="menu-card-body"><h3 data-i18n="s3_name">Sorvete Artesanal</h3><p data-i18n="s3_desc">Açaí, coco, cupuaçu ou creme. Feito por sorveteiro artesanal parceiro. Puro e sem conservante.</p><div class="card-footer"><span class="price">R$ 14</span><span class="chip" data-i18n="c_brasil">Brasil</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="galeria">
+  <div class="section-label" data-i18n="gallery_label">Na brasa e na mesa</div>
+  <h2 class="section-title" data-i18n="gallery_title">A Brasa em imagens</h2>
+  <div class="section-line"></div>
+  <div class="gallery-grid">
+    <img class="g1" src="https://images.unsplash.com/photo-1544025162-d76694265947?w=900&auto=format&fit=crop" alt="churrasco brasa" loading="lazy"/>
+    <img class="g2" src="https://images.unsplash.com/photo-1432139509613-5c4255815697?w=700&auto=format&fit=crop" alt="picanha" loading="lazy"/>
+    <img class="g3" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&fit=crop" alt="provoleta" loading="lazy"/>
+    <img class="g4" src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=700&auto=format&fit=crop" alt="caipirinha" loading="lazy"/>
+    <img class="g5" src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=700&auto=format&fit=crop" alt="pudim" loading="lazy"/>
+  </div>
+</section>
+
+<section class="testi-section" id="avaliacoes">
+  <div class="section-label" data-i18n="testi_label">Quem provou, aprovou</div>
+  <h2 class="section-title" data-i18n="testi_title">O que falam da Brasa</h2>
+  <div class="section-line" style="background:var(--amber)"></div>
+  <div class="testi-grid">
+    <div class="tcard reveal">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p data-i18n="t1">"A melhor picanha que já comi na vida. O ponto é perfeito, o sal é no certo e a gordura derrete na boca. Venho há 12 anos e nunca uma decepção. A Brasa é sagrada."</p>
+      <div class="tcard-author"><img class="tcard-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop" alt="Marcos"/><div><div class="tcard-name">Marcos A.</div><div class="tcard-loc">São Paulo, SP</div></div></div>
+    </div>
+    <div class="tcard reveal">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p data-i18n="t2">"I have been to churrascarias all over Brazil and Brasa is the real deal. The costela takes hours to prepare and you can tell. Best Brazilian BBQ I have ever had."</p>
+      <div class="tcard-author"><img class="tcard-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop" alt="Chloe"/><div><div class="tcard-name">Chloe R.</div><div class="tcard-loc">New York, USA</div></div></div>
+    </div>
+    <div class="tcard reveal">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p data-i18n="t3">"Trouxe minha família inteira no aniversário do meu pai, 14 pessoas. Saímos todos feli e cheios. O atendimento foi perfeito e o preço justo para a qualidade. Virou tradição."</p>
+      <div class="tcard-author"><img class="tcard-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop" alt="Fernanda"/><div><div class="tcard-name">Fernanda L.</div><div class="tcard-loc">Campinas, SP</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="section-label" data-i18n="hours_label">Informações</div>
+  <h2 class="section-title" data-i18n="hours_title">Horários e como chegar</h2>
+  <div class="section-line"></div>
+  <div class="info-grid reveal">
+    <div>
+      <ul class="hours-list">
+        <li><span data-i18n="h_seg_sex">Segunda a Sexta</span><span data-i18n="h_seg_sex_t">11h30 - 15h / 18h - 23h</span></li>
+        <li><span data-i18n="h_sab">Sábado</span><span data-i18n="h_sab_t">11h30 - 23h30</span></li>
+        <li><span data-i18n="h_dom">Domingo</span><span data-i18n="h_dom_t">11h30 - 22h</span></li>
+        <li><span data-i18n="h_end">Endereço</span><span>Av. Brigadeiro Faria Lima 2232, Pinheiros, São Paulo</span></li>
+        <li><span data-i18n="h_tel">Telefone</span><span>+55 11 9000-0001</span></li>
+        <li><span data-i18n="h_estac">Estacionamento</span><span data-i18n="h_estac_v">Convênio com estacionamento ao lado</span></li>
+      </ul>
+    </div>
+    <div class="map-wrap">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1!2d-46.6858!3d-23.5678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDM0JzA0LjEiUyA0NsKwNDEnMDguOSJX!5e0!3m2!1spt!2sbr!4v1600000000000" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<section id="reserva" class="res-section">
+  <div class="section-label" data-i18n="res_label">Reservas</div>
+  <h2 class="section-title" data-i18n="res_title">Reserve sua mesa</h2>
+  <div class="section-line" style="background:var(--amber)"></div>
+  <form class="res-form" onsubmit="handleSubmit(event)">
+    <div class="form-group"><label data-i18n="f_nome">Nome</label><input type="text" data-i18n-ph="f_nome_ph" placeholder="Seu nome" required/></div>
+    <div class="form-group"><label data-i18n="f_email">E-mail</label><input type="email" data-i18n-ph="f_email_ph" placeholder="seu@email.com" required/></div>
+    <div class="form-group"><label data-i18n="f_tel">WhatsApp</label><input type="tel" data-i18n-ph="f_tel_ph" placeholder="+55 11 90000-0000"/></div>
+    <div class="form-group"><label data-i18n="f_pessoas">Pessoas</label><select><option>1-2</option><option>3-4</option><option>5-6</option><option>7-10</option><option data-i18n="f_grupo">Grupo acima de 10</option></select></div>
+    <div class="form-group"><label data-i18n="f_data">Data</label><input type="date" required/></div>
+    <div class="form-group"><label data-i18n="f_hora">Horário</label><select><option>12:00</option><option>12:30</option><option>13:00</option><option>18:30</option><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option></select></div>
+    <div class="form-group full"><label data-i18n="f_obs">Obs</label><textarea data-i18n-ph="f_obs_ph" placeholder="Aniversário, cadeirinha, necessidades especiais..."></textarea></div>
+    <button type="submit" class="btn-submit" data-i18n="f_enviar">Confirmar reserva</button>
+  </form>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand"><h3><span class="b">B</span>RASA</h3><p data-i18n="footer_desc">Churrascaria e rodízio de carnes na Av. Faria Lima, Pinheiros, São Paulo. Desde 1989.</p></div>
+    <div class="footer-col"><h4 data-i18n="footer_nav">Navegação</h4><ul><li><a href="#sobre" data-i18n="nav_about">Nossa história</a></li><li><a href="#rodizio" data-i18n="nav_rodizio">Rodízio</a></li><li><a href="#cardapio" data-i18n="nav_menu">Cardápio</a></li><li><a href="#reserva" data-i18n="nav_reserve">Reservar</a></li></ul></div>
+    <div class="footer-col"><h4 data-i18n="footer_contact">Contato</h4><ul><li><a href="tel:+551190000001">+55 11 9000-0001</a></li><li><a href="mailto:oi@brasachurrascaria.com.br">oi@brasachurrascaria.com.br</a></li><li><a href="https://wa.me/4916364141​97" target="_blank">WhatsApp</a></li><li><a href="https://maps.google.com" target="_blank" data-i18n="footer_map">Como chegar</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span data-i18n="footer_credit">Criado por <a href="mailto:vinayakganiger445@gmail.com">Vinayak Ganiger</a> · Personalização disponível</span>
+    <span>© 2025 Brasa Churrascaria</span>
+  </div>
+</footer>
+
+<script>
+const translations={
+  pt:{
+    nav_about:'Nossa história',nav_rodizio:'Rodízio',nav_menu:'Cardápio',nav_hours:'Horários',nav_reserve:'Reservar',
+    dark_mode:'Modo noturno',cta_float:'Reservar mesa',
+    hero_badge:'Rodízio completo · Desde 1989',
+    hero_desc:'Picanha, fraldinha, costela, linguiça, frango e muito mais. Rodízio à vontade com os melhores cortes do Brasil, assados na brasa no ponto certo. Vem comer do jeito que brasileiro gosta.',
+    hero_btn1:'Ver o rodízio',hero_btn2:'Reservar mesa',
+    stat_years:'anos de brasa',stat_cuts:'cortes no rodízio',stat_seats:'lugares',stat_rating:'no Google',
+    badge_since:'Desde',
+    about_label:'Nossa história',about_title:'Brasa de verdade desde 1989',
+    about_p1:'O gaúcho Seu Geraldo chegou em São Paulo em 1989 com uma certeza: a carne boa, bem assada, na brasa de madeira, não precisava de truque nem de molho. Só precisava de fogo, sal e paciência.',
+    about_p2:'Hoje a Brasa é uma referência em rodízio no Brasil. A receita não mudou: carnes selecionadas diretamente do produtor, cortes nobres e populares, assados por churrasqueiros com décadas de experiência.',
+    about_p3:'Da picanha ao frango passarinho, do coração ao cupim. Na Brasa, todo corte é tratado com o mesmo respeito. Porque churrasco bom não é só carne — é reunião, é alegria, é Brasil.',
+    icon_carne:'Carne própria',icon_brasa:'Brasa de lenha',icon_sal:'Sal grosso',icon_prod:'Produtores parceiros',
+    rod_label:'O que tem no espeto',rod_title:'O Rodízio da Brasa',
+    r1_name:'Picanha',r1_desc:'A rainha do churrasco brasileiro. Corte nobre, capa de gordura intacta, sal grosso e brasa forte.',
+    r2_name:'Fraldinha',r2_desc:'Fibras longas, muito sabor, menos gordura. Assada lentamente na temperatura certa.',
+    r3_name:'Costela Janela',r3_desc:'Assada por horas até desprender do osso. A costela que todo churrasqueiro quer fazer, mas poucos conseguem.',
+    r4_name:'Cupim',r4_desc:'Corte característico do gado zebuíno brasileiro. Marmoreado, suculento, quase um ritual.',
+    r5_name:'Maminha',r5_desc:'Macia, suave e perfeita. Ideal para quem prefere um corte menos gorduroso com muita maciez.',
+    r6_name:'Coração de Frango',r6_desc:'O petisco mais querido do churrasco brasileiro. Temperado na véspera, passado na grelha quente.',
+    r7_name:'Frango na Brasa',r7_desc:'Sobrecoxa e coxa marinadas no alho e limão. Pele crocante, carne suculenta por dentro.',
+    r8_name:'Linguiça Artesanal',r8_desc:'Feita por produtor parceiro em Minas. Temperada com ervas, assada até estourar de gosto.',
+    r9_name:'Cordeiro',r9_desc:'Aos fins de semana. Costela de cordeiro temperada no alho-poró, alecrim e azeite. Para os entendidos.',
+    promo_title:'Rodízio Completo · À Vontade',promo_desc:'Todos os cortes acima + salada caprichada + pão de alho artesanal + acompanhamentos. Refrigerante incluso. Bebidas alcoólicas à parte.',promo_pp:'por pessoa',
+    menu_label:'Além do rodízio',menu_title:'Acompanhamentos e bebidas',
+    tab_acomp:'Acompanhamentos',tab_porcoes:'Porções',tab_beb:'Bebidas',tab_sobr:'Sobremesas',
+    ac1_name:'Vinagrete Clássico',ac1_desc:'Tomate, cebola, pimentão e salsa. Temperado na hora com azeite e limão. Indispensável.',
+    ac2_name:'Farofa de Manteiga',ac2_desc:'Farofa de mandioca torrada na manteiga, com bacon crocante e cheiro-verde. Impossível resistir.',
+    ac3_name:'Arroz e Feijão',ac3_desc:'Arroz soltinho e feijão carioquinha temperado. O clássico brasileiro que nunca abandona ninguém.',
+    ac4_name:'Pão de Alho Artesanal',ac4_desc:'Pão francês, manteiga, alho, cheiro-verde e queijo coalho. Assado na boca do forno na hora.',
+    p1_name:'Provoleta na Grelha',p1_desc:'Queijo provolone grelhado com orégano e azeite. Crocante por fora, derretido por dentro.',
+    p2_name:'Mandioca Frita',p2_desc:'Mandioca cozida e frita na hora, crocante e macia. Com molho de ervas ou vinagrete. Porção para 2.',
+    p3_name:'Coxinha do Brasa',p3_desc:'Coxinha de frango com catupiry, massa crocante e suculenta. 6 unidades por porção.',
+    p4_name:'Picanha Extra 300g',p4_desc:'Para quem quer mais. Corte individual de picanha assada na hora, fora do rodízio.',
+    b1_name:'Caipirinha Tradicional',b1_desc:'Cachaça artesanal de alambique, limão, açúcar de cana e gelo. O drinque do churrasco.',
+    b2_name:'Cerveja Gelada',b2_desc:'Long neck nacional ou importada, sempre geladíssima. Porque churrasco sem cerveja não tem graça.',
+    b3_name:'Suco de Fruta',b3_desc:'Laranja, abacaxi, manga ou melancia. Batido na hora, sem conservante, do jeito certo.',
+    b4_name:'Vinho da Casa',b4_desc:'Tinto ou branco selecionado pela casa para harmonizar com os cortes. Taça ou garrafa.',
+    s1_name:'Pudim de Leite',s1_desc:'Pudim cremoso de leite condensado com calda de caramelo. O clássico brasileiro que fecha qualquer refeição.',
+    s2_name:'Mousse de Chocolate',s2_desc:'Mousse aerado de chocolate ao leite, chantilly fresco e raspas de chocolate amargo.',
+    s3_name:'Sorvete Artesanal',s3_desc:'Açaí, coco, cupuaçu ou creme. Feito por sorveteiro artesanal parceiro. Puro e sem conservante.',
+    c_classic:'Clássico',c_brasil:'Brasil',c_fav:'Favorito',c_premium:'Premium',
+    gallery_label:'Na brasa e na mesa',gallery_title:'A Brasa em imagens',
+    testi_label:'Quem provou, aprovou',testi_title:'O que falam da Brasa',
+    t1:'"A melhor picanha que já comi na vida. O ponto é perfeito, o sal é no certo e a gordura derrete na boca. Venho há 12 anos e nunca uma decepção. A Brasa é sagrada."',
+    t2:'"I have been to churrascarias all over Brazil and Brasa is the real deal. The costela takes hours to prepare and you can tell. Best Brazilian BBQ I have ever had."',
+    t3:'"Trouxe minha família inteira no aniversário do meu pai, 14 pessoas. Saímos todos felizes e cheios. O atendimento foi perfeito e o preço justo para a qualidade. Virou tradição."',
+    hours_label:'Informações',hours_title:'Horários e como chegar',
+    h_seg_sex:'Segunda a Sexta',h_seg_sex_t:'11h30 - 15h / 18h - 23h',
+    h_sab:'Sábado',h_sab_t:'11h30 - 23h30',
+    h_dom:'Domingo',h_dom_t:'11h30 - 22h',
+    h_end:'Endereço',h_tel:'Telefone',h_estac:'Estacionamento',h_estac_v:'Convênio com estacionamento ao lado',
+    res_label:'Reservas',res_title:'Reserve sua mesa',
+    f_nome:'Nome',f_nome_ph:'Seu nome',f_email:'E-mail',f_email_ph:'seu@email.com',
+    f_tel:'WhatsApp',f_tel_ph:'+55 11 90000-0000',f_pessoas:'Pessoas',f_grupo:'Grupo acima de 10',
+    f_data:'Data',f_hora:'Horário',f_obs:'Obs',f_obs_ph:'Aniversário, cadeirinha, necessidades especiais...',
+    f_enviar:'Confirmar reserva',
+    footer_desc:'Churrascaria e rodízio de carnes na Av. Faria Lima, Pinheiros, São Paulo. Desde 1989.',
+    footer_nav:'Navegação',footer_contact:'Contato',footer_map:'Como chegar',
+    footer_credit:'Criado por <a href="mailto:vinayakganiger445@gmail.com">Vinayak Ganiger</a> · Personalização disponível',
+  },
+  en:{
+    nav_about:'Our story',nav_rodizio:'Rodízio',nav_menu:'Menu',nav_hours:'Hours',nav_reserve:'Reserve',
+    dark_mode:'Night mode',cta_float:'Book a table',
+    hero_badge:'All-you-can-eat BBQ · Since 1989',
+    hero_desc:'Picanha, fraldinha, costela, linguiça, chicken and much more. Unlimited Brazilian BBQ with the finest cuts, grilled over real wood charcoal to perfection. Real churrasco, the way Brazilians love it.',
+    hero_btn1:'View the rodízio',hero_btn2:'Book a table',
+    stat_years:'years of fire',stat_cuts:'cuts on the skewer',stat_seats:'seats',stat_rating:'on Google',
+    badge_since:'Since',
+    about_label:'Our story',about_title:'Real fire since 1989',
+    about_p1:'Gaucho Seu Geraldo arrived in São Paulo in 1989 with one certainty: great meat, well grilled over wood charcoal, needed no tricks or sauce. Just fire, salt and patience.',
+    about_p2:'Today Brasa is a reference for rodízio in Brazil. The recipe has not changed: meat sourced directly from producers, premium and popular cuts, grilled by churrasqueiros with decades of experience.',
+    about_p3:'From picanha to whole chicken, from heart to cupim. At Brasa, every cut gets the same respect. Because great churrasco is not just meat — it is family, joy and Brazil.',
+    icon_carne:'Own cattle',icon_brasa:'Wood charcoal',icon_sal:'Rock salt',icon_prod:'Partner producers',
+    rod_label:'What is on the skewer',rod_title:'The Brasa Rodízio',
+    r1_name:'Picanha',r1_desc:'The queen of Brazilian BBQ. Prime cut, fat cap intact, rock salt and strong heat.',
+    r2_name:'Fraldinha',r2_desc:'Long grain, lots of flavour, less fat. Grilled slowly at exactly the right temperature.',
+    r3_name:'Window Rib (Costela)',r3_desc:'Grilled for hours until it falls off the bone. The rib every churrasqueiro wants to cook but few can do properly.',
+    r4_name:'Cupim (Hump Steak)',r4_desc:'Characteristic cut from Brazilian Zebu cattle. Well-marbled, juicy, almost a ritual in itself.',
+    r5_name:'Maminha (Tri-Tip)',r5_desc:'Tender, mild and perfect. Ideal for those who prefer a leaner cut with lots of tenderness.',
+    r6_name:'Chicken Hearts',r6_desc:'The most beloved churrasco snack in Brazil. Seasoned overnight, grilled on a hot rack.',
+    r7_name:'Grilled Chicken',r7_desc:'Thigh and drumstick marinated in garlic and lime. Crispy skin, juicy meat inside.',
+    r8_name:'Artisan Linguiça',r8_desc:'Made by a partner producer in Minas. Herb-seasoned, grilled until it bursts with flavour.',
+    r9_name:'Lamb Rib',r9_desc:'Weekends only. Lamb rib seasoned with leek, rosemary and olive oil. For the connoisseurs.',
+    promo_title:'Full Rodízio · All You Can Eat',promo_desc:'All cuts above + generous salad bar + artisan garlic bread + sides. Soft drink included. Alcoholic drinks separate.',promo_pp:'per person',
+    menu_label:'Beyond the rodízio',menu_title:'Sides and drinks',
+    tab_acomp:'Sides',tab_porcoes:'Portions',tab_beb:'Drinks',tab_sobr:'Desserts',
+    ac1_name:'Classic Vinagrete',ac1_desc:'Tomato, onion, pepper and parsley. Seasoned with olive oil and lime. Essential.',
+    ac2_name:'Butter Farofa',ac2_desc:'Cassava flour toasted in butter with crispy bacon and fresh herbs. Impossible to resist.',
+    ac3_name:'Rice and Beans',ac3_desc:'Fluffy rice and seasoned carioca beans. The Brazilian classic that never lets anyone down.',
+    ac4_name:'Artisan Garlic Bread',ac4_desc:'French bread, butter, garlic, herbs and coalho cheese. Baked to order in the oven.',
+    p1_name:'Grilled Provoleta',p1_desc:'Grilled provolone cheese with oregano and olive oil. Crispy outside, melted inside.',
+    p2_name:'Fried Cassava',p2_desc:'Cooked then fried to order, crispy and soft. With herb dip or vinagrete. Serves 2.',
+    p3_name:'Brasa Coxinha',p3_desc:'Chicken coxinha with catupiry cream cheese, crispy and juicy batter. 6 pieces per order.',
+    p4_name:'Extra Picanha 300g',p4_desc:'For those who want more. Individual picanha cut grilled to order, outside the rodízio.',
+    b1_name:'Traditional Caipirinha',b1_desc:'Artisan alembic cachaça, lime, cane sugar and ice. The churrasco drink.',
+    b2_name:'Ice Cold Beer',b2_desc:'National or imported long neck, always ice cold. Because churrasco without beer is no fun.',
+    b3_name:'Fresh Fruit Juice',b3_desc:'Orange, pineapple, mango or watermelon. Blended to order with no preservatives.',
+    b4_name:'House Wine',b4_desc:'Red or white selected by the house to pair with the cuts. By the glass or bottle.',
+    s1_name:'Milk Pudding',s1_desc:'Creamy condensed milk pudding with caramel sauce. The Brazilian classic that closes any meal.',
+    s2_name:'Chocolate Mousse',s2_desc:'Airy milk chocolate mousse with fresh cream and dark chocolate shavings.',
+    s3_name:'Artisan Ice Cream',s3_desc:'Açaí, coconut, cupuaçu or cream. Made by an artisan ice cream partner. Pure and preservative-free.',
+    c_classic:'Classic',c_brasil:'Brazil',c_fav:'Favourite',c_premium:'Premium',
+    gallery_label:'On the grill and on the table',gallery_title:'Brasa in pictures',
+    testi_label:'Those who tried, approved',testi_title:'What people say about Brasa',
+    t1:'"The best picanha I have ever eaten in my life. The doneness is perfect, the salt is just right and the fat melts in your mouth. I have been coming for 12 years and never a disappointment."',
+    t2:'"I have been to churrascarias all over Brazil and Brasa is the real deal. The costela takes hours to prepare and you can tell. Best Brazilian BBQ I have ever had."',
+    t3:'"I brought my whole family for my father\'s birthday, 14 people. We all left happy and full. The service was perfect and the price fair for the quality. It has become a tradition."',
+    hours_label:'Information',hours_title:'Hours and how to find us',
+    h_seg_sex:'Monday to Friday',h_seg_sex_t:'11:30am - 3pm / 6pm - 11pm',
+    h_sab:'Saturday',h_sab_t:'11:30am - 11:30pm',
+    h_dom:'Sunday',h_dom_t:'11:30am - 10pm',
+    h_end:'Address',h_tel:'Phone',h_estac:'Parking',h_estac_v:'Partnership with adjacent parking lot',
+    res_label:'Reservations',res_title:'Book your table',
+    f_nome:'Name',f_nome_ph:'Your name',f_email:'Email',f_email_ph:'your@email.com',
+    f_tel:'WhatsApp',f_tel_ph:'+55 11 90000-0000',f_pessoas:'Guests',f_grupo:'Group over 10',
+    f_data:'Date',f_hora:'Time',f_obs:'Notes',f_obs_ph:'Birthday, high chair, special needs...',
+    f_enviar:'Confirm reservation',
+    footer_desc:'Brazilian BBQ and rodízio on Av. Faria Lima, Pinheiros, São Paulo. Since 1989.',
+    footer_nav:'Navigation',footer_contact:'Contact',footer_map:'Directions',
+    footer_credit:'Built by <a href="mailto:vinayakganiger445@gmail.com">Vinayak Ganiger</a> · Customisation available',
+  }
+};
+
+let currentLang=localStorage.getItem('brasa_lang')||'pt';
+function applyLang(lang){
+  currentLang=lang;localStorage.setItem('brasa_lang',lang);
+  document.documentElement.lang=lang;
+  const t=translations[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    if(t[k]!==undefined){if(k==='footer_credit'){el.innerHTML=t[k];}else{el.textContent=t[k];}}
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(t[k]!==undefined)el.placeholder=t[k];});
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+}
+document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
+applyLang(currentLang);
+
+let dark=localStorage.getItem('brasa_dark')==='true';
+function applyDark(){
+  document.body.classList.toggle('dark-mode',dark);
+  document.getElementById('darkToggle').textContent=dark?(currentLang==='pt'?'Modo claro':'Light mode'):(currentLang==='pt'?'Modo noturno':'Night mode');
+}
+document.getElementById('darkToggle').addEventListener('click',()=>{dark=!dark;localStorage.setItem('brasa_dark',dark);applyDark();});
+applyDark();
+
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('hide'),900));
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>60));
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+}));
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+const cta=document.getElementById('floating-cta');
+new IntersectionObserver(entries=>cta.classList.toggle('hidden',entries[0].isIntersecting),{threshold:.1}).observe(document.getElementById('reserva'));
+function handleSubmit(e){e.preventDefault();alert(currentLang==='pt'?'Reserva enviada! Confirmaremos por WhatsApp em breve. Obrigado!':'Reservation sent! We will confirm by WhatsApp shortly. Thank you!');e.target.reset();}
+</script>
+</body>
+</html>

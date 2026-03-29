@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<!--
+  ALMA CAFÉ — Brazilian Café & Bistro Website Template
+  Created by Vinayak Ganiger x Claude (Anthropic AI)
+  For customisation: vinayakganiger445@gmail.com
+  WhatsApp: https://wa.me/4916364141​97
+-->
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Alma Café — Café & Bistrô</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --terra:#C1440E;
+  --green:#2E5E2E;
+  --cream:#FDF6EC;
+  --brown:#2C1A0E;
+  --sand:#E8D5B7;
+  --zinc:#888;
+  --dark-bg:#0F1209;
+  --dark-surface:#181F0F;
+  --dark-border:#2A3320;
+  --dark-text:#EAE4D6;
+  --shadow:0 4px 24px rgba(0,0,0,.12);
+  --radius:8px;
+  --transition:all .3s ease;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--brown);overflow-x:hidden;transition:background .3s,color .3s}
+body.dark-mode{background:var(--dark-bg);color:var(--dark-text)}
+
+/* LOADER */
+#loader{position:fixed;inset:0;background:var(--brown);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .6s}
+#loader.hide{opacity:0;pointer-events:none}
+.loader-bean{font-size:2.8rem;animation:beanSpin 1.2s ease-in-out infinite}
+@keyframes beanSpin{0%{transform:rotate(0deg) scale(1)}50%{transform:rotate(180deg) scale(1.2)}100%{transform:rotate(360deg) scale(1)}}
+.loader-name{font-family:'Playfair Display',serif;color:var(--cream);font-size:1.6rem;letter-spacing:.15em;margin-top:1rem}
+.loader-sub{color:var(--sand);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;margin-top:.4rem}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:72px;transition:var(--transition)}
+nav.scrolled{background:rgba(44,26,14,.95);backdrop-filter:blur(10px);box-shadow:0 2px 12px rgba(0,0,0,.2)}
+body.dark-mode nav.scrolled{background:rgba(15,18,9,.97)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;color:#fff;text-decoration:none;letter-spacing:.06em}
+.nav-logo span{color:var(--terra)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-right{display:flex;align-items:center;gap:.9rem}
+.lang-switcher{display:flex;background:rgba(255,255,255,.15);border-radius:20px;overflow:hidden}
+.lang-btn{border:none;background:transparent;color:rgba(255,255,255,.7);font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600;padding:.3rem .75rem;cursor:pointer;transition:var(--transition);letter-spacing:.06em}
+.lang-btn.active{background:#fff;color:var(--brown)}
+.dark-toggle{background:none;border:1px solid rgba(255,255,255,.3);color:#fff;padding:.3rem .75rem;border-radius:20px;font-size:.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;transition:var(--transition)}
+.dark-toggle:hover{background:rgba(255,255,255,.15)}
+.nav-reserve{background:var(--terra);color:#fff;padding:.45rem 1.1rem;border-radius:var(--radius);font-size:.8rem;font-weight:600;text-decoration:none;letter-spacing:.04em;transition:var(--transition);white-space:nowrap}
+.nav-reserve:hover{background:#a03509}
+.menu-btn{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.menu-btn span{width:24px;height:2px;background:#fff;border-radius:2px}
+
+/* HERO */
+.hero{height:100vh;min-height:600px;position:relative;display:flex;align-items:center;overflow:hidden}
+.hero-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1800&auto=format&fit=crop') center/cover no-repeat;filter:brightness(.5)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(44,26,14,.8) 0%,rgba(46,94,46,.3) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 8%;max-width:680px}
+.hero-leaf{font-size:2rem;margin-bottom:1rem;display:block}
+.hero-tag{color:rgba(255,255,255,.7);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.9rem}
+.hero h1{font-family:'Playfair Display',serif;color:#fff;font-size:clamp(2.8rem,5.5vw,4.5rem);line-height:1.15;font-weight:700;margin-bottom:1.1rem}
+.hero h1 em{color:var(--terra);font-style:italic}
+.hero-desc{color:rgba(255,255,255,.8);font-size:1rem;line-height:1.75;margin-bottom:2.5rem;max-width:500px}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:var(--terra);color:#fff;padding:.8rem 2rem;border-radius:var(--radius);font-weight:600;font-size:.9rem;text-decoration:none;transition:var(--transition)}
+.btn-primary:hover{background:#a03509;transform:translateY(-2px)}
+.btn-outline{border:2px solid rgba(255,255,255,.6);color:#fff;padding:.8rem 2rem;border-radius:var(--radius);font-weight:600;font-size:.9rem;text-decoration:none;transition:var(--transition)}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:rgba(255,255,255,.5);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase}
+.scroll-hint::after{content:'';width:1px;height:40px;background:rgba(255,255,255,.3);animation:drop 1.5s ease-in-out infinite}
+@keyframes drop{0%{height:0;opacity:1}100%{height:40px;opacity:0}}
+
+/* SECTIONS */
+section{padding:6rem 8%}
+.section-label{color:var(--terra);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;font-weight:600;margin-bottom:.75rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);color:var(--brown);line-height:1.25;margin-bottom:1rem}
+body.dark-mode .section-title{color:var(--dark-text)}
+.section-line{width:48px;height:3px;background:var(--terra);border-radius:2px;margin:0 0 2rem}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-img-wrap{position:relative}
+.about-img{width:100%;height:480px;object-fit:cover;border-radius:var(--radius)}
+.about-badge{position:absolute;bottom:-1.5rem;right:-1.5rem;background:var(--terra);color:#fff;padding:1.2rem 1.5rem;border-radius:var(--radius);text-align:center;box-shadow:var(--shadow)}
+.about-badge strong{display:block;font-family:'Playfair Display',serif;font-size:1.9rem;line-height:1}
+.about-badge span{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;opacity:.9}
+.about-text p{color:var(--zinc);line-height:1.8;margin-bottom:1.2rem;font-size:.95rem}
+body.dark-mode .about-text p{color:#aaa}
+.about-stats{display:flex;gap:2rem;margin-top:2rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat strong{display:block;font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--brown)}
+body.dark-mode .stat strong{color:var(--dark-text)}
+.stat span{font-size:.72rem;color:var(--zinc);letter-spacing:.1em;text-transform:uppercase}
+
+/* MENU */
+.menu-section{background:var(--sand)}
+body.dark-mode .menu-section{background:var(--dark-surface)}
+.menu-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:3rem}
+.tab-btn{background:none;border:2px solid transparent;padding:.5rem 1.4rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;color:var(--zinc);transition:var(--transition)}
+.tab-btn.active{background:var(--terra);color:#fff;border-color:var(--terra)}
+.tab-btn:hover:not(.active){border-color:var(--terra);color:var(--terra)}
+.tab-panel{display:none}
+.tab-panel.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.5rem}
+.menu-card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .3s}
+.menu-card:hover{transform:translateY(-4px)}
+body.dark-mode .menu-card{background:var(--dark-bg)}
+.menu-card img{width:100%;height:200px;object-fit:cover}
+.menu-card-body{padding:1.25rem}
+.menu-card-body h3{font-family:'Playfair Display',serif;font-size:1.05rem;margin-bottom:.3rem;color:var(--brown)}
+body.dark-mode .menu-card-body h3{color:var(--dark-text)}
+.menu-card-body p{color:var(--zinc);font-size:.83rem;line-height:1.6;margin-bottom:.75rem}
+.card-footer{display:flex;align-items:center;justify-content:space-between}
+.price{font-weight:700;color:var(--terra);font-size:.95rem}
+.chip{font-size:.68rem;background:rgba(193,68,14,.1);color:var(--terra);padding:.2rem .6rem;border-radius:20px;font-weight:600}
+
+/* SPECIALS */
+.specials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.5rem;margin-top:2rem}
+.special-card{border:2px solid rgba(193,68,14,.15);border-radius:var(--radius);padding:1.5rem;transition:var(--transition)}
+.special-card:hover{border-color:var(--terra)}
+body.dark-mode .special-card{border-color:var(--dark-border)}
+.spec-day{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--terra);font-weight:700;margin-bottom:.5rem}
+.special-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--brown);margin-bottom:.4rem}
+body.dark-mode .special-card h3{color:var(--dark-text)}
+.special-card p{color:var(--zinc);font-size:.83rem;line-height:1.6}
+
+/* GALLERY */
+.gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:260px 260px;gap:10px;margin-top:2rem}
+.g1{grid-column:1/6;grid-row:1/3}
+.g2{grid-column:6/10;grid-row:1/2}
+.g3{grid-column:10/13;grid-row:1/2}
+.g4{grid-column:6/9;grid-row:2/3}
+.g5{grid-column:9/13;grid-row:2/3}
+.gallery-grid img{width:100%;height:100%;object-fit:cover;border-radius:var(--radius);transition:transform .5s}
+.gallery-grid img:hover{transform:scale(1.03)}
+
+/* TESTIMONIALS */
+.testi-section{background:var(--green)}
+body.dark-mode .testi-section{background:#0D1A0D}
+.testi-section .section-title{color:#fff}
+.testi-section .section-label{color:rgba(255,255,255,.5)}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-top:2rem}
+.tcard{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:1.75rem;transition:var(--transition)}
+.tcard:hover{background:rgba(255,255,255,.12)}
+.stars{color:var(--terra);font-size:1rem;margin-bottom:.9rem;letter-spacing:.1em}
+.tcard p{color:rgba(255,255,255,.78);font-size:.88rem;line-height:1.7;font-style:italic;margin-bottom:1.2rem}
+.tcard-author{display:flex;align-items:center;gap:.75rem}
+.tcard-avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid var(--terra)}
+.tcard-name{font-weight:600;font-size:.85rem;color:#fff}
+.tcard-loc{font-size:.72rem;color:rgba(255,255,255,.45)}
+
+/* HOURS + MAP */
+.info-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start}
+.hours-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.hours-list li{display:flex;justify-content:space-between;padding-bottom:.75rem;border-bottom:1px solid rgba(0,0,0,.07);font-size:.9rem}
+body.dark-mode .hours-list li{border-color:var(--dark-border)}
+.hours-list li span:first-child{font-weight:600;color:var(--brown)}
+body.dark-mode .hours-list li span:first-child{color:var(--dark-text)}
+.hours-list li span:last-child{color:var(--zinc);font-size:.85rem}
+.map-wrap iframe{width:100%;height:340px;border:none;border-radius:var(--radius)}
+
+/* RESERVATION */
+.res-section{background:var(--sand)}
+body.dark-mode .res-section{background:var(--dark-surface)}
+.res-form{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2rem;max-width:680px}
+.res-form .full{grid-column:1/-1}
+.form-group{display:flex;flex-direction:column;gap:.4rem}
+.form-group label{font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--brown)}
+body.dark-mode .form-group label{color:var(--dark-text)}
+.form-group input,.form-group select,.form-group textarea{border:1.5px solid rgba(0,0,0,.12);background:#fff;color:var(--brown);padding:.7rem .9rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s}
+body.dark-mode .form-group input,body.dark-mode .form-group select,body.dark-mode .form-group textarea{background:var(--dark-bg);border-color:var(--dark-border);color:var(--dark-text)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--terra)}
+.form-group textarea{resize:vertical;min-height:90px}
+.btn-submit{background:var(--terra);color:#fff;border:none;padding:.8rem 2.5rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:var(--transition);margin-top:.5rem}
+.btn-submit:hover{background:#a03509;transform:translateY(-1px)}
+
+/* NEWSLETTER */
+.nl-section{background:var(--terra)}
+.nl-section .section-title{color:#fff}
+.nl-section .section-line{background:#fff}
+.nl-section p{color:rgba(255,255,255,.82);margin-bottom:2rem;font-size:.95rem}
+.nl-form{display:flex;gap:1rem;max-width:500px;flex-wrap:wrap}
+.nl-form input{flex:1;min-width:200px;border:none;background:rgba(255,255,255,.15);color:#fff;padding:.75rem 1.1rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none}
+.nl-form input::placeholder{color:rgba(255,255,255,.6)}
+.nl-form input:focus{background:rgba(255,255,255,.25)}
+.btn-nl{background:#fff;color:var(--terra);border:none;padding:.75rem 1.75rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:var(--transition)}
+.btn-nl:hover{background:var(--cream)}
+
+/* FOOTER */
+footer{background:var(--brown);color:rgba(255,255,255,.65);padding:3.5rem 8% 2rem}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+.footer-brand h3{font-family:'Playfair Display',serif;color:#fff;font-size:1.2rem;margin-bottom:.75rem}
+.footer-brand h3 span{color:var(--terra)}
+.footer-brand p{font-size:.85rem;line-height:1.7;color:rgba(255,255,255,.45);max-width:240px}
+.footer-col h4{color:#fff;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.footer-col ul a{color:rgba(255,255,255,.45);text-decoration:none;font-size:.85rem;transition:color .2s}
+.footer-col ul a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:rgba(255,255,255,.35);flex-wrap:wrap;gap:.5rem}
+.footer-bottom a{color:rgba(255,255,255,.5);text-decoration:none}
+.footer-bottom a:hover{color:#fff}
+
+/* FLOATING CTA */
+#floating-cta{position:fixed;bottom:2rem;right:2rem;background:var(--terra);color:#fff;padding:.75rem 1.4rem;border-radius:30px;font-size:.85rem;font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(193,68,14,.4);transition:var(--transition);z-index:80}
+#floating-cta:hover{background:#a03509;transform:translateY(-2px)}
+#floating-cta.hidden{opacity:0;pointer-events:none}
+
+/* MOBILE */
+@media(max-width:900px){
+  .about-grid,.info-grid{grid-template-columns:1fr}
+  .about-badge{right:1rem;bottom:-1rem}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .g1,.g2,.g3,.g4,.g5{grid-column:auto;grid-row:auto;height:220px}
+  .res-form{grid-template-columns:1fr}
+  .res-form .full{grid-column:1}
+}
+@media(max-width:640px){
+  section{padding:4rem 5%}
+  .nav-links,.nav-reserve{display:none}
+  .menu-btn{display:flex}
+  .hero-content{padding:0 5%}
+  .gallery-grid{grid-template-columns:1fr}
+  .g1,.g2,.g3,.g4,.g5{height:200px}
+  .footer-top{grid-template-columns:1fr}
+}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-bean">☕</div>
+  <div class="loader-name">Alma <span style="color:var(--terra)">Café</span></div>
+  <div class="loader-sub">Café & Bistrô · São Paulo</div>
+</div>
+
+<!-- FLOATING CTA -->
+<a href="#reserva" id="floating-cta" data-i18n="cta_float">Reservar mesa</a>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Alma <span>Café</span></a>
+  <ul class="nav-links">
+    <li><a href="#sobre" data-i18n="nav_about">Nossa história</a></li>
+    <li><a href="#cardapio" data-i18n="nav_menu">Cardápio</a></li>
+    <li><a href="#galeria" data-i18n="nav_gallery">Galeria</a></li>
+    <li><a href="#contato" data-i18n="nav_hours">Horários</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="pt">PT</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <button class="dark-toggle" id="darkToggle" data-i18n="dark_mode">Modo noturno</button>
+    <a href="#reserva" class="nav-reserve" data-i18n="nav_reserve">Reservar</a>
+    <button class="menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-leaf">🌿</span>
+    <p class="hero-tag" data-i18n="hero_tag">Café & Bistrô · São Paulo · Desde 1994</p>
+    <h1>O sabor que<br>aquece a <em>alma</em></h1>
+    <p class="hero-desc" data-i18n="hero_desc">Pão de queijo fresquinho, açaí cremoso, café especial e uma cozinha brasileira de verdade. Aqui cada detalhe é feito com carinho.</p>
+    <div class="hero-btns">
+      <a href="#cardapio" class="btn-primary" data-i18n="hero_btn1">Ver cardápio</a>
+      <a href="#reserva" class="btn-outline" data-i18n="hero_btn2">Reservar mesa</a>
+    </div>
+  </div>
+  <div class="scroll-hint" data-i18n="scroll_hint">Rolar</div>
+</section>
+
+<!-- ABOUT -->
+<section id="sobre">
+  <div class="about-grid">
+    <div class="about-img-wrap reveal">
+      <img class="about-img" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=900&auto=format&fit=crop" alt="Alma Café interior" loading="lazy"/>
+      <div class="about-badge"><strong>1994</strong><span data-i18n="badge_since">Desde</span></div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-label" data-i18n="about_label">Nossa história</div>
+      <h2 class="section-title" data-i18n="about_title">Um cantinho com alma no coração de São Paulo</h2>
+      <div class="section-line"></div>
+      <p data-i18n="about_p1">O Alma Café nasceu em 1994 do sonho da família Oliveira: criar um lugar onde a comida brasileira de verdade pudesse ser celebrada. Nada de modinha, nada de imitação. Só o que é genuinamente nosso.</p>
+      <p data-i18n="about_p2">Nosso pão de queijo sai do forno a cada hora. O açaí vem diretamente do Pará. O café especial é de fazendas parceiras de Minas Gerais que visitamos pessoalmente todo ano.</p>
+      <p data-i18n="about_p3">Em 30 anos viramos parte da vida de muita gente. Aniversários, encontros de negócios, café da manhã de domingo. O Alma é seu lar fora de casa.</p>
+      <div class="about-stats">
+        <div class="stat"><strong>30</strong><span data-i18n="stat_years">anos</span></div>
+        <div class="stat"><strong>80</strong><span data-i18n="stat_seats">lugares</span></div>
+        <div class="stat"><strong>4.9</strong><span data-i18n="stat_rating">Google</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="cardapio" class="menu-section">
+  <div class="section-label" data-i18n="menu_label">Cardápio</div>
+  <h2 class="section-title" data-i18n="menu_title">O que sai da nossa cozinha</h2>
+  <div class="section-line"></div>
+  <div class="menu-tabs">
+    <button class="tab-btn active" data-tab="manha" data-i18n="tab_manha">Café da Manhã</button>
+    <button class="tab-btn" data-tab="almoco" data-i18n="tab_almoco">Almoço</button>
+    <button class="tab-btn" data-tab="doces" data-i18n="tab_doces">Doces</button>
+    <button class="tab-btn" data-tab="bebidas" data-i18n="tab_bebidas">Bebidas</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-manha">
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&auto=format&fit=crop" alt="Pão de queijo" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="m1_name">Pão de Queijo Mineiro</h3>
+        <p data-i18n="m1_desc">Assado a cada hora, sequinho por fora e cremoso por dentro. Receita da vovó Oliveira desde sempre.</p>
+        <div class="card-footer"><span class="price">R$ 8</span><span class="chip" data-i18n="tag_classic">Clássico</span></div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&auto=format&fit=crop" alt="Tapioca" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="m2_name">Tapioca Nordestina</h3>
+        <p data-i18n="m2_desc">Tapioca crocante recheada com queijo coalho e manteiga de garrafa. Com opção doce ou salgada.</p>
+        <div class="card-footer"><span class="price">R$ 16</span><span class="chip" data-i18n="tag_brasil">Brasil</span></div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=600&auto=format&fit=crop" alt="Torrada" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="m3_name">Torrada com Requeijão</h3>
+        <p data-i18n="m3_desc">Pão de forma artesanal tostado, requeijão cremoso e geleia de jabuticaba feita por nós.</p>
+        <div class="card-footer"><span class="price">R$ 14</span><span class="chip" data-i18n="tag_caseiro">Caseiro</span></div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1517673132405-a56a62b18caf?w=600&auto=format&fit=crop" alt="Açaí bowl" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="m4_name">Bowl de Açaí do Pará</h3>
+        <p data-i18n="m4_desc">Açaí batido na hora, granola artesanal, banana, morango e mel de eucalipto. Puro e sem conservante.</p>
+        <div class="card-footer"><span class="price">R$ 22</span><span class="chip" data-i18n="tag_saudavel">Saudável</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-almoco">
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&auto=format&fit=crop" alt="Feijoada" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="a1_name">Feijoada Completa</h3>
+        <p data-i18n="a1_desc">Feijão preto com carnes nobres, arroz branco, couve refogada, farofa e laranja. Servida às sextas.</p>
+        <div class="card-footer"><span class="price">R$ 48</span><span class="chip" data-i18n="tag_classic">Clássico</span></div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&auto=format&fit=crop" alt="Salada" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="a2_name">Salada Tropical</h3>
+        <p data-i18n="a2_desc">Mix de folhas, manga, abacate, frango grelhado, castanha-do-pará e molho de maracujá.</p>
+        <div class="card-footer"><span class="price">R$ 38</span><span class="chip" data-i18n="tag_saudavel">Saudável</span></div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1432139509613-5c4255815697?w=600&auto=format&fit=crop" alt="PF" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="a3_name">Prato do Dia</h3>
+        <p data-i18n="a3_desc">Arroz, feijão, salada, proteína do dia e sobremesa. O almoço brasileiro completo que o paulistano ama.</p>
+        <div class="card-footer"><span class="price">R$ 35</span><span class="chip" data-i18n="tag_brasil">Brasil</span></div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop" alt="Sanduíche" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="a4_name">Bauru do Alma</h3>
+        <p data-i18n="a4_desc">Pão artesanal, rosbife, queijo derretido, tomate e pepino. O bauru reinventado com carinho.</p>
+        <div class="card-footer"><span class="price">R$ 32</span><span class="chip" data-i18n="tag_caseiro">Caseiro</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-doces">
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&auto=format&fit=crop" alt="Brigadeiro" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="d1_name">Brigadeiro Gourmet</h3>
+        <p data-i18n="d1_desc">Chocolate belga 60%, manteiga francesa e granulado artesanal. O original brasileiro, elevado ao máximo.</p>
+        <div class="card-footer"><span class="price">R$ 9</span><span class="chip" data-i18n="tag_brasil">Brasil</span></div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&auto=format&fit=crop" alt="Mousse maracujá" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="d2_name">Mousse de Maracujá</h3>
+        <p data-i18n="d2_desc">Cremosa, levemente azedinha e irresistível. Feita com maracujá fresco e servida bem gelada.</p>
+        <div class="card-footer"><span class="price">R$ 16</span><span class="chip" data-i18n="tag_caseiro">Caseiro</span></div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1582716401301-b2407dc7563d?w=600&auto=format&fit=crop" alt="Torta" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="d3_name">Torta de Limão</h3>
+        <p data-i18n="d3_desc">Base de biscoito amanteigado, creme de limão siciliano e merengue maçaricado na hora.</p>
+        <div class="card-footer"><span class="price">R$ 18</span><span class="chip" data-i18n="tag_classic">Clássico</span></div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=600&auto=format&fit=crop" alt="Petit gateau" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="d4_name">Petit Gâteau com Sorvete</h3>
+        <p data-i18n="d4_desc">Bolinho de chocolate com coração derretido, sorvete de creme artesanal e calda de caramelo.</p>
+        <div class="card-footer"><span class="price">R$ 24</span><span class="chip" data-i18n="tag_premium">Premium</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-bebidas">
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&auto=format&fit=crop" alt="Café especial" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="b1_name">Café Especial Mineiro</h3>
+        <p data-i18n="b1_desc">Grãos de fazendas parceiras em Minas, torra média, notas de caramelo e chocolate amargo.</p>
+        <div class="card-footer"><span class="price">R$ 9</span><span class="chip" data-i18n="tag_brasil">Brasil</span></div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&auto=format&fit=crop" alt="Suco" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="b2_name">Suco Natural da Estação</h3>
+        <p data-i18n="b2_desc">Laranja, acerola, maracujá ou goiaba. Batido na hora sem açúcar adicionado e sem conservante.</p>
+        <div class="card-footer"><span class="price">R$ 12</span><span class="chip" data-i18n="tag_saudavel">Saudável</span></div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1570145820259-b5b80c5c8bd6?w=600&auto=format&fit=crop" alt="Vitamina" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="b3_name">Vitamina de Banana</h3>
+        <p data-i18n="b3_desc">Banana, leite integral gelado, aveia e mel. O clássico brasileiro que sustenta e dá energia.</p>
+        <div class="card-footer"><span class="price">R$ 14</span><span class="chip" data-i18n="tag_classic">Clássico</span></div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=600&auto=format&fit=crop" alt="Caipirinha" loading="lazy"/>
+      <div class="menu-card-body">
+        <h3 data-i18n="b4_name">Caipirinha de Limão</h3>
+        <p data-i18n="b4_desc">Cachaça artesanal de alambique, limão taiti, açúcar de cana e muito gelo. A nossa versão especial.</p>
+        <div class="card-footer"><span class="price">R$ 22</span><span class="chip" data-i18n="tag_brasil">Brasil</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALS -->
+<section id="especiais">
+  <div class="section-label" data-i18n="spec_label">Destaques</div>
+  <h2 class="section-title" data-i18n="spec_title">As sugestões da semana</h2>
+  <div class="section-line"></div>
+  <div class="specials-grid">
+    <div class="special-card reveal">
+      <div class="spec-day" data-i18n="sp1_day">Segunda a Sexta</div>
+      <h3 data-i18n="sp1_name">Combo Café da Manhã</h3>
+      <p data-i18n="sp1_desc">Café especial + pão de queijo + fruta da estação. Tudo por R$ 22, das 7h às 10h.</p>
+    </div>
+    <div class="special-card reveal">
+      <div class="spec-day" data-i18n="sp2_day">Toda Sexta</div>
+      <h3 data-i18n="sp2_name">Feijoada Completa</h3>
+      <p data-i18n="sp2_desc">A feijoada mais esperada da semana. Com caipirinha de boas-vindas inclusa. A partir das 12h.</p>
+    </div>
+    <div class="special-card reveal">
+      <div class="spec-day" data-i18n="sp3_day">Sábado</div>
+      <h3 data-i18n="sp3_name">Brunch do Final de Semana</h3>
+      <p data-i18n="sp3_desc">Mesa farta com frios, frutas, pães artesanais, ovos mexidos e sucos. R$ 45 por pessoa, das 9h às 13h.</p>
+    </div>
+    <div class="special-card reveal">
+      <div class="spec-day" data-i18n="sp4_day">Domingo</div>
+      <h3 data-i18n="sp4_name">Happy Hour</h3>
+      <p data-i18n="sp4_desc">Caipirinhas e petiscos com 20% de desconto das 17h às 20h. Música ao vivo todo domingo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="galeria">
+  <div class="section-label" data-i18n="gallery_label">Nosso espaço</div>
+  <h2 class="section-title" data-i18n="gallery_title">A atmosfera do Alma</h2>
+  <div class="section-line"></div>
+  <div class="gallery-grid">
+    <img class="g1" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&auto=format&fit=crop" alt="cafe interior" loading="lazy"/>
+    <img class="g2" src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=700&auto=format&fit=crop" alt="pão de queijo" loading="lazy"/>
+    <img class="g3" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&auto=format&fit=crop" alt="comida brasileira" loading="lazy"/>
+    <img class="g4" src="https://images.unsplash.com/photo-1517673132405-a56a62b18caf?w=700&auto=format&fit=crop" alt="açaí" loading="lazy"/>
+    <img class="g5" src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=700&auto=format&fit=crop" alt="brigadeiro" loading="lazy"/>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section" id="avaliacoes">
+  <div class="section-label" data-i18n="testi_label">Avaliações</div>
+  <h2 class="section-title" data-i18n="testi_title">O que nossos clientes dizem</h2>
+  <div class="section-line" style="background:rgba(255,255,255,.3)"></div>
+  <div class="testi-grid">
+    <div class="tcard reveal">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p data-i18n="t1">"O melhor pão de queijo de São Paulo, sem exagero. Venho toda semana e nunca decepcionou. O café especial mineiro é extraordinário. Lugar com alma de verdade."</p>
+      <div class="tcard-author">
+        <img class="tcard-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop" alt="Ana"/>
+        <div><div class="tcard-name">Ana Paula R.</div><div class="tcard-loc">São Paulo, SP</div></div>
+      </div>
+    </div>
+    <div class="tcard reveal">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p data-i18n="t2">"I visited São Paulo for a week and Alma Café was the highlight. The açaí bowl is the real thing — no added sugar, just pure Amazonian fruit. Incredible place."</p>
+      <div class="tcard-author">
+        <img class="tcard-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop" alt="Marcus"/>
+        <div><div class="tcard-name">Marcus T.</div><div class="tcard-loc">Berlin, Germany</div></div>
+      </div>
+    </div>
+    <div class="tcard reveal">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p data-i18n="t3">"A feijoada de sexta é sagrada pra mim. Já levei clientes, família e amigos. Nunca ninguém saiu sem elogio. O Alma faz parte da minha vida há 10 anos."</p>
+      <div class="tcard-author">
+        <img class="tcard-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop" alt="Carla"/>
+        <div><div class="tcard-name">Carla M.</div><div class="tcard-loc">São Paulo, SP</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS + MAP -->
+<section id="contato">
+  <div class="section-label" data-i18n="hours_label">Informações</div>
+  <h2 class="section-title" data-i18n="hours_title">Horários e localização</h2>
+  <div class="section-line"></div>
+  <div class="info-grid reveal">
+    <div>
+      <ul class="hours-list">
+        <li><span data-i18n="h_seg_sex">Segunda a Sexta</span><span data-i18n="h_seg_sex_t">7h - 22h</span></li>
+        <li><span data-i18n="h_sab">Sábado</span><span data-i18n="h_sab_t">8h - 23h</span></li>
+        <li><span data-i18n="h_dom">Domingo</span><span data-i18n="h_dom_t">9h - 21h</span></li>
+        <li><span data-i18n="h_end">Endereço</span><span>Rua Augusta 1200, Consolação, São Paulo</span></li>
+        <li><span data-i18n="h_tel">Telefone</span><span>+55 11 9000-0000</span></li>
+        <li><span data-i18n="h_metro">Metrô</span><span data-i18n="h_metro_v">Consolação (Linha 2 — Verde)</span></li>
+      </ul>
+    </div>
+    <div class="map-wrap">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1!2d-46.6544!3d-23.5505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDMzJzAxLjgiUyA0NsKwMzknMTUuOCJX!5e0!3m2!1spt!2sbr!4v1600000000000" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section id="reserva" class="res-section">
+  <div class="section-label" data-i18n="res_label">Reservas</div>
+  <h2 class="section-title" data-i18n="res_title">Reserve sua mesa</h2>
+  <div class="section-line"></div>
+  <form class="res-form" onsubmit="handleSubmit(event)">
+    <div class="form-group">
+      <label data-i18n="f_nome">Nome</label>
+      <input type="text" data-i18n-ph="f_nome_ph" placeholder="Seu nome" required/>
+    </div>
+    <div class="form-group">
+      <label data-i18n="f_email">E-mail</label>
+      <input type="email" data-i18n-ph="f_email_ph" placeholder="seu@email.com" required/>
+    </div>
+    <div class="form-group">
+      <label data-i18n="f_tel">WhatsApp</label>
+      <input type="tel" data-i18n-ph="f_tel_ph" placeholder="+55 11 90000-0000"/>
+    </div>
+    <div class="form-group">
+      <label data-i18n="f_pessoas">Pessoas</label>
+      <select>
+        <option>1</option><option>2</option><option>3</option><option>4</option>
+        <option>5</option><option>6</option><option data-i18n="f_mais">Mais de 6</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label data-i18n="f_data">Data</label>
+      <input type="date" required/>
+    </div>
+    <div class="form-group">
+      <label data-i18n="f_hora">Horário</label>
+      <select>
+        <option>08:00</option><option>09:00</option><option>10:00</option>
+        <option>12:00</option><option>13:00</option><option>19:00</option>
+        <option>20:00</option><option>21:00</option>
+      </select>
+    </div>
+    <div class="form-group full">
+      <label data-i18n="f_obs">Observações</label>
+      <textarea data-i18n-ph="f_obs_ph" placeholder="Alergias, aniversário, cadeirinha..."></textarea>
+    </div>
+    <button type="submit" class="btn-submit" data-i18n="f_enviar">Confirmar reserva</button>
+  </form>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="nl-section">
+  <div class="section-label" style="color:rgba(255,255,255,.6)" data-i18n="nl_label">Newsletter</div>
+  <h2 class="section-title" data-i18n="nl_title">Fique por dentro</h2>
+  <div class="section-line"></div>
+  <p data-i18n="nl_desc">Receba nossas novidades, promoções e eventos especiais diretamente no seu e-mail.</p>
+  <form class="nl-form" onsubmit="handleNL(event)">
+    <input type="email" data-i18n-ph="nl_ph" placeholder="seu@email.com"/>
+    <button type="submit" class="btn-nl" data-i18n="nl_btn">Quero receber</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>Alma <span>Café</span></h3>
+      <p data-i18n="footer_desc">Café & Bistrô brasileiro com alma e tradição. Rua Augusta 1200, Consolação, São Paulo.</p>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer_nav">Navegação</h4>
+      <ul>
+        <li><a href="#sobre" data-i18n="nav_about">Nossa história</a></li>
+        <li><a href="#cardapio" data-i18n="nav_menu">Cardápio</a></li>
+        <li><a href="#galeria" data-i18n="nav_gallery">Galeria</a></li>
+        <li><a href="#reserva" data-i18n="nav_reserve">Reservar</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer_contact">Contato</h4>
+      <ul>
+        <li><a href="tel:+551190000000">+55 11 9000-0000</a></li>
+        <li><a href="mailto:oi@almacafe.com.br">oi@almacafe.com.br</a></li>
+        <li><a href="https://wa.me/4916364141​97" target="_blank">WhatsApp</a></li>
+        <li><a href="https://maps.google.com" target="_blank" data-i18n="footer_map">Como chegar</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span data-i18n="footer_credit">Criado por <a href="mailto:vinayakganiger445@gmail.com">Vinayak Ganiger</a> · Personalização disponível</span>
+    <span>© 2025 Alma Café</span>
+  </div>
+</footer>
+
+<script>
+const translations = {
+  pt:{
+    nav_about:'Nossa história', nav_menu:'Cardápio', nav_gallery:'Galeria',
+    nav_hours:'Horários', nav_reserve:'Reservar',
+    dark_mode:'Modo noturno', cta_float:'Reservar mesa',
+    hero_tag:'Café & Bistrô · São Paulo · Desde 1994',
+    hero_desc:'Pão de queijo fresquinho, açaí cremoso, café especial e uma cozinha brasileira de verdade. Aqui cada detalhe é feito com carinho.',
+    hero_btn1:'Ver cardápio', hero_btn2:'Reservar mesa', scroll_hint:'Rolar',
+    badge_since:'Desde',
+    about_label:'Nossa história',
+    about_title:'Um cantinho com alma no coração de São Paulo',
+    about_p1:'O Alma Café nasceu em 1994 do sonho da família Oliveira: criar um lugar onde a comida brasileira de verdade pudesse ser celebrada. Nada de modinha, nada de imitação. Só o que é genuinamente nosso.',
+    about_p2:'Nosso pão de queijo sai do forno a cada hora. O açaí vem diretamente do Pará. O café especial é de fazendas parceiras de Minas Gerais que visitamos pessoalmente todo ano.',
+    about_p3:'Em 30 anos viramos parte da vida de muita gente. Aniversários, encontros de negócios, café da manhã de domingo. O Alma é seu lar fora de casa.',
+    stat_years:'anos', stat_seats:'lugares', stat_rating:'Google',
+    menu_label:'Cardápio', menu_title:'O que sai da nossa cozinha',
+    tab_manha:'Café da Manhã', tab_almoco:'Almoço', tab_doces:'Doces', tab_bebidas:'Bebidas',
+    m1_name:'Pão de Queijo Mineiro', m1_desc:'Assado a cada hora, sequinho por fora e cremoso por dentro. Receita da vovó Oliveira desde sempre.',
+    m2_name:'Tapioca Nordestina', m2_desc:'Tapioca crocante recheada com queijo coalho e manteiga de garrafa. Com opção doce ou salgada.',
+    m3_name:'Torrada com Requeijão', m3_desc:'Pão de forma artesanal tostado, requeijão cremoso e geleia de jabuticaba feita por nós.',
+    m4_name:'Bowl de Açaí do Pará', m4_desc:'Açaí batido na hora, granola artesanal, banana, morango e mel de eucalipto. Puro e sem conservante.',
+    a1_name:'Feijoada Completa', a1_desc:'Feijão preto com carnes nobres, arroz branco, couve refogada, farofa e laranja. Servida às sextas.',
+    a2_name:'Salada Tropical', a2_desc:'Mix de folhas, manga, abacate, frango grelhado, castanha-do-pará e molho de maracujá.',
+    a3_name:'Prato do Dia', a3_desc:'Arroz, feijão, salada, proteína do dia e sobremesa. O almoço brasileiro completo que o paulistano ama.',
+    a4_name:'Bauru do Alma', a4_desc:'Pão artesanal, rosbife, queijo derretido, tomate e pepino. O bauru reinventado com carinho.',
+    d1_name:'Brigadeiro Gourmet', d1_desc:'Chocolate belga 60%, manteiga francesa e granulado artesanal. O original brasileiro, elevado ao máximo.',
+    d2_name:'Mousse de Maracujá', d2_desc:'Cremosa, levemente azedinha e irresistível. Feita com maracujá fresco e servida bem gelada.',
+    d3_name:'Torta de Limão', d3_desc:'Base de biscoito amanteigado, creme de limão siciliano e merengue maçaricado na hora.',
+    d4_name:'Petit Gâteau com Sorvete', d4_desc:'Bolinho de chocolate com coração derretido, sorvete de creme artesanal e calda de caramelo.',
+    b1_name:'Café Especial Mineiro', b1_desc:'Grãos de fazendas parceiras em Minas, torra média, notas de caramelo e chocolate amargo.',
+    b2_name:'Suco Natural da Estação', b2_desc:'Laranja, acerola, maracujá ou goiaba. Batido na hora sem açúcar adicionado e sem conservante.',
+    b3_name:'Vitamina de Banana', b3_desc:'Banana, leite integral gelado, aveia e mel. O clássico brasileiro que sustenta e dá energia.',
+    b4_name:'Caipirinha de Limão', b4_desc:'Cachaça artesanal de alambique, limão taiti, açúcar de cana e muito gelo. A nossa versão especial.',
+    tag_classic:'Clássico', tag_brasil:'Brasil', tag_caseiro:'Caseiro', tag_saudavel:'Saudável', tag_premium:'Premium',
+    spec_label:'Destaques', spec_title:'As sugestões da semana',
+    sp1_day:'Segunda a Sexta', sp1_name:'Combo Café da Manhã', sp1_desc:'Café especial + pão de queijo + fruta da estação. Tudo por R$ 22, das 7h às 10h.',
+    sp2_day:'Toda Sexta', sp2_name:'Feijoada Completa', sp2_desc:'A feijoada mais esperada da semana. Com caipirinha de boas-vindas inclusa. A partir das 12h.',
+    sp3_day:'Sábado', sp3_name:'Brunch do Final de Semana', sp3_desc:'Mesa farta com frios, frutas, pães artesanais, ovos mexidos e sucos. R$ 45 por pessoa, das 9h às 13h.',
+    sp4_day:'Domingo', sp4_name:'Happy Hour', sp4_desc:'Caipirinhas e petiscos com 20% de desconto das 17h às 20h. Música ao vivo todo domingo.',
+    gallery_label:'Nosso espaço', gallery_title:'A atmosfera do Alma',
+    testi_label:'Avaliações', testi_title:'O que nossos clientes dizem',
+    t1:'"O melhor pão de queijo de São Paulo, sem exagero. Venho toda semana e nunca decepcionou. O café especial mineiro é extraordinário. Lugar com alma de verdade."',
+    t2:'"I visited São Paulo for a week and Alma Café was the highlight. The açaí bowl is the real thing — no added sugar, just pure Amazonian fruit. Incredible place."',
+    t3:'"A feijoada de sexta é sagrada pra mim. Já levei clientes, família e amigos. Nunca ninguém saiu sem elogio. O Alma faz parte da minha vida há 10 anos."',
+    hours_label:'Informações', hours_title:'Horários e localização',
+    h_seg_sex:'Segunda a Sexta', h_seg_sex_t:'7h - 22h',
+    h_sab:'Sábado', h_sab_t:'8h - 23h',
+    h_dom:'Domingo', h_dom_t:'9h - 21h',
+    h_end:'Endereço', h_tel:'Telefone', h_metro:'Metrô', h_metro_v:'Consolação (Linha 2 — Verde)',
+    res_label:'Reservas', res_title:'Reserve sua mesa',
+    f_nome:'Nome', f_nome_ph:'Seu nome', f_email:'E-mail', f_email_ph:'seu@email.com',
+    f_tel:'WhatsApp', f_tel_ph:'+55 11 90000-0000', f_pessoas:'Pessoas', f_mais:'Mais de 6',
+    f_data:'Data', f_hora:'Horário', f_obs:'Observações', f_obs_ph:'Alergias, aniversário, cadeirinha...',
+    f_enviar:'Confirmar reserva',
+    nl_label:'Newsletter', nl_title:'Fique por dentro',
+    nl_desc:'Receba nossas novidades, promoções e eventos especiais diretamente no seu e-mail.',
+    nl_ph:'seu@email.com', nl_btn:'Quero receber',
+    footer_desc:'Café & Bistrô brasileiro com alma e tradição. Rua Augusta 1200, Consolação, São Paulo.',
+    footer_nav:'Navegação', footer_contact:'Contato', footer_map:'Como chegar',
+    footer_credit:'Criado por <a href="mailto:vinayakganiger445@gmail.com">Vinayak Ganiger</a> · Personalização disponível',
+  },
+  en:{
+    nav_about:'Our story', nav_menu:'Menu', nav_gallery:'Gallery',
+    nav_hours:'Hours', nav_reserve:'Reserve',
+    dark_mode:'Night mode', cta_float:'Book a table',
+    hero_tag:'Café & Bistro · São Paulo · Since 1994',
+    hero_desc:'Fresh pão de queijo, creamy açaí, specialty coffee and genuine Brazilian food. Every detail here is made with love.',
+    hero_btn1:'View menu', hero_btn2:'Book a table', scroll_hint:'Scroll',
+    badge_since:'Since',
+    about_label:'Our story',
+    about_title:'A soulful corner in the heart of São Paulo',
+    about_p1:'Alma Café was born in 1994 from the Oliveira family dream: to create a place where real Brazilian food could be celebrated. No trends, no imitation. Only what is genuinely ours.',
+    about_p2:'Our pão de queijo comes out of the oven every hour. The açaí is sourced directly from Pará. The specialty coffee comes from partner farms in Minas Gerais that we visit personally every year.',
+    about_p3:'Over 30 years we have become part of many people\'s lives. Birthdays, business meetings, Sunday breakfasts. Alma is your home away from home.',
+    stat_years:'years', stat_seats:'seats', stat_rating:'Google',
+    menu_label:'Menu', menu_title:'Straight from our kitchen',
+    tab_manha:'Breakfast', tab_almoco:'Lunch', tab_doces:'Desserts', tab_bebidas:'Drinks',
+    m1_name:'Mineiro Pão de Queijo', m1_desc:'Baked every hour, crispy outside and creamy inside. Grandma Oliveira\'s recipe, unchanged.',
+    m2_name:'Northeastern Tapioca', m2_desc:'Crispy tapioca filled with coalho cheese and butter. Available sweet or savoury.',
+    m3_name:'Toast with Requeijão', m3_desc:'Toasted artisan bread, creamy requeijão cream cheese and our homemade jabuticaba jam.',
+    m4_name:'Amazonian Açaí Bowl', m4_desc:'Fresh-blended açaí, artisan granola, banana, strawberry and eucalyptus honey. Pure and preservative-free.',
+    a1_name:'Full Feijoada', a1_desc:'Black bean stew with premium cuts of meat, white rice, sautéed kale, farofa and orange. Fridays only.',
+    a2_name:'Tropical Salad', a2_desc:'Mixed greens, mango, avocado, grilled chicken, Brazil nuts and passion fruit dressing.',
+    a3_name:'Plate of the Day', a3_desc:'Rice, beans, salad, protein of the day and dessert. The full Brazilian lunch that São Paulo loves.',
+    a4_name:'Alma Bauru', a4_desc:'Artisan bread, roast beef, melted cheese, tomato and cucumber. The classic bauru, reimagined.',
+    d1_name:'Gourmet Brigadeiro', d1_desc:'60% Belgian chocolate, French butter and artisan sprinkles. Brazil\'s original sweet, elevated.',
+    d2_name:'Passion Fruit Mousse', d2_desc:'Creamy, gently tart and irresistible. Made with fresh passion fruit and served ice cold.',
+    d3_name:'Lemon Tart', d3_desc:'Buttery biscuit base, Sicilian lemon cream and freshly blowtorched meringue.',
+    d4_name:'Petit Gâteau with Ice Cream', d4_desc:'Chocolate cake with molten centre, artisan vanilla ice cream and caramel sauce.',
+    b1_name:'Minas Specialty Coffee', b1_desc:'Beans from partner farms in Minas Gerais, medium roast, notes of caramel and dark chocolate.',
+    b2_name:'Fresh Seasonal Juice', b2_desc:'Orange, acerola, passion fruit or guava. Blended to order with no added sugar and no preservatives.',
+    b3_name:'Banana Vitamina', b3_desc:'Banana, cold whole milk, oats and honey. The Brazilian classic that energises and sustains.',
+    b4_name:'Lime Caipirinha', b4_desc:'Artisan alembic cachaça, Tahiti lime, cane sugar and plenty of ice. Our special version.',
+    tag_classic:'Classic', tag_brasil:'Brazil', tag_caseiro:'Homemade', tag_saudavel:'Healthy', tag_premium:'Premium',
+    spec_label:'Highlights', spec_title:"This week's specials",
+    sp1_day:'Monday to Friday', sp1_name:'Breakfast Combo', sp1_desc:'Specialty coffee + pão de queijo + seasonal fruit. All for R$ 22, from 7am to 10am.',
+    sp2_day:'Every Friday', sp2_name:'Full Feijoada', sp2_desc:'The most anticipated meal of the week. Welcome caipirinha included. From midday.',
+    sp3_day:'Saturday', sp3_name:'Weekend Brunch', sp3_desc:'Generous spread of cold cuts, fruit, artisan breads, scrambled eggs and juices. R$ 45 per person, 9am to 1pm.',
+    sp4_day:'Sunday', sp4_name:'Happy Hour', sp4_desc:'Caipirinhas and snacks at 20% off from 5pm to 8pm. Live music every Sunday.',
+    gallery_label:'Our space', gallery_title:'The Alma atmosphere',
+    testi_label:'Reviews', testi_title:'What our guests say',
+    t1:'"The best pão de queijo in São Paulo, no exaggeration. I come every week and it has never disappointed. The Minas specialty coffee is extraordinary. A place with real soul."',
+    t2:'"I visited São Paulo for a week and Alma Café was the highlight. The açaí bowl is the real thing — no added sugar, just pure Amazonian fruit. Incredible place."',
+    t3:'"Friday feijoada is sacred to me. I have brought clients, family and friends. Nobody has ever left without a compliment. Alma has been part of my life for 10 years."',
+    hours_label:'Information', hours_title:'Hours and location',
+    h_seg_sex:'Monday to Friday', h_seg_sex_t:'7am - 10pm',
+    h_sab:'Saturday', h_sab_t:'8am - 11pm',
+    h_dom:'Sunday', h_dom_t:'9am - 9pm',
+    h_end:'Address', h_tel:'Phone', h_metro:'Metro', h_metro_v:'Consolação (Line 2 — Green)',
+    res_label:'Reservations', res_title:'Book your table',
+    f_nome:'Name', f_nome_ph:'Your name', f_email:'Email', f_email_ph:'your@email.com',
+    f_tel:'WhatsApp', f_tel_ph:'+55 11 90000-0000', f_pessoas:'Guests', f_mais:'More than 6',
+    f_data:'Date', f_hora:'Time', f_obs:'Notes', f_obs_ph:'Allergies, birthday, high chair...',
+    f_enviar:'Confirm reservation',
+    nl_label:'Newsletter', nl_title:'Stay in the loop',
+    nl_desc:'Get our latest news, promotions and special events delivered straight to your inbox.',
+    nl_ph:'your@email.com', nl_btn:'Subscribe',
+    footer_desc:'Brazilian Café & Bistro with soul and tradition. Rua Augusta 1200, Consolação, São Paulo.',
+    footer_nav:'Navigation', footer_contact:'Contact', footer_map:'Directions',
+    footer_credit:'Built by <a href="mailto:vinayakganiger445@gmail.com">Vinayak Ganiger</a> · Customisation available',
+  }
+};
+
+let currentLang = localStorage.getItem('alma_lang') || 'pt';
+function applyLang(lang){
+  currentLang = lang; localStorage.setItem('alma_lang', lang);
+  document.documentElement.lang = lang;
+  const t = translations[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n');
+    if(t[k]!==undefined){ if(k==='footer_credit'){el.innerHTML=t[k];}else{el.textContent=t[k];} }
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const k=el.getAttribute('data-i18n-ph'); if(t[k]!==undefined) el.placeholder=t[k];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+}
+document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
+applyLang(currentLang);
+
+let dark = localStorage.getItem('alma_dark')==='true';
+function applyDark(){
+  document.body.classList.toggle('dark-mode',dark);
+  document.getElementById('darkToggle').textContent = dark
+    ?(currentLang==='pt'?'Modo claro':'Light mode')
+    :(currentLang==='pt'?'Modo noturno':'Night mode');
+}
+document.getElementById('darkToggle').addEventListener('click',()=>{dark=!dark;localStorage.setItem('alma_dark',dark);applyDark();});
+applyDark();
+
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('hide'),900));
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>60));
+
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+}));
+
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+const cta=document.getElementById('floating-cta');
+const resEl=document.getElementById('reserva');
+new IntersectionObserver(entries=>cta.classList.toggle('hidden',entries[0].isIntersecting),{threshold:.1}).observe(resEl);
+
+function handleSubmit(e){e.preventDefault();alert(currentLang==='pt'?'Reserva enviada! Confirmaremos por e-mail em até 24h. Obrigado!':'Reservation sent! We will confirm by email within 24h. Thank you!');e.target.reset();}
+function handleNL(e){e.preventDefault();alert(currentLang==='pt'?'Inscrito! Obrigado.':'Subscribed! Thank you.');e.target.reset();}
+</script>
+</body>
+</html>
