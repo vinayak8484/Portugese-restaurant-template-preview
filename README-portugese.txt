@@ -14,9 +14,6 @@ As versões completas e sem formatação estão disponíveis para compra no Gumr
   ✦   nobre-fine-dining:  https://vinayak8484.github.io/Portuguese-restaurant-template-preview/nobre-fine-dining.html
   🔥  brasa-churrascaria: https://vinayak8484.github.io/Portuguese-restaurant-template-preview/brasa-churrascaria.html
 
-Para comprar a versao completa: https://vinayakganiger.gumroad.com
-
-
 ──────────────────────────────────────────────────────────────
   O QUE ESTA NA PASTA
 ──────────────────────────────────────────────────────────────
