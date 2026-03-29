@@ -9,12 +9,11 @@ The full, clean versions are available for purchase on Gumroad.
 
 👉 **[Buy the full bundle on Gumroad] (https://vinayakganiger.gumroad.com/l/vxvjp)**
 
-
 🔴 LIVE PREVIEWS – take a look, like them? Then buy them
 
-  ☕  alma-cafe:          https://vinayak8484.github.io/Portuguese-restaurant-template-preview/alma-cafe.html
-  ✦   nobre-fine-dining:  https://vinayak8484.github.io/Portuguese-restaurant-template-preview/nobre-fine-dining.html
-  🔥  brasa-churrascaria: https://vinayak8484.github.io/Portuguese-restaurant-template-preview/brasa-churrascaria.html
+  ☕  alma-cafe:          https://vinayak8484.github.io/Portugese-restaurant-template-preview/alma-cafe.html
+  ✦   nobre-fine-dining:  https://vinayak8484.github.io/Portugese-restaurant-template-preview/nobre-fine-dining.html
+  🔥  brasa-churrascaria: https://vinayak8484.github.io/Portugese-restaurant-template-preview/brasa-churrascaria.html
 
 ──────────────────────────────────────────────────────────────
   WHAT IS IN THE FOLDER
